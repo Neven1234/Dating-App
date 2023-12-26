@@ -1,0 +1,17 @@
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\bin\Debug\net8.0\ServiceLayer.deps.json
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\bin\Debug\net8.0\ServiceLayer.dll
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\bin\Debug\net8.0\ServiceLayer.pdb
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\bin\Debug\net8.0\DomainLayer.dll
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\bin\Debug\net8.0\RepositoryLayer.dll
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\bin\Debug\net8.0\RepositoryLayer.pdb
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\bin\Debug\net8.0\DomainLayer.pdb
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ServiceLayer.csproj.AssemblyReference.cache
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ServiceLayer.AssemblyInfoInputs.cache
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ServiceLayer.AssemblyInfo.cs
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ServiceLayer.csproj.CoreCompileInputs.cache
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ServiceLayer.csproj.CopyComplete
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ServiceLayer.dll
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\refint\ServiceLayer.dll
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ServiceLayer.pdb
+D:\Learn C#\Udemy-Course\udemyCourse\ServiceLayer\obj\Debug\net8.0\ref\ServiceLayer.dll

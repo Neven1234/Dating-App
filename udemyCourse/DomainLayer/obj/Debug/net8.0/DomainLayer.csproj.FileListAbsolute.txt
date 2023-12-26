@@ -1,0 +1,11 @@
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\bin\Debug\net8.0\DomainLayer.deps.json
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\bin\Debug\net8.0\DomainLayer.dll
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\bin\Debug\net8.0\DomainLayer.pdb
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\obj\Debug\net8.0\DomainLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\obj\Debug\net8.0\DomainLayer.AssemblyInfoInputs.cache
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\obj\Debug\net8.0\DomainLayer.AssemblyInfo.cs
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\obj\Debug\net8.0\DomainLayer.csproj.CoreCompileInputs.cache
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\obj\Debug\net8.0\DomainLayer.dll
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\obj\Debug\net8.0\refint\DomainLayer.dll
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\obj\Debug\net8.0\DomainLayer.pdb
+D:\Learn C#\Udemy-Course\udemyCourse\DomainLayer\obj\Debug\net8.0\ref\DomainLayer.dll
