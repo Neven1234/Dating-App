@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using udemyCourse.Dtos;
-
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace udemyCourse.Controllers
 {
@@ -43,30 +44,40 @@ namespace udemyCourse.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> LogIn(UserForLoginDTO userForLoginDTO)
         {
+    
             var user=await _repository.Login(userForLoginDTO.Username, userForLoginDTO.Password);
             if(user==null)
             {
                 return Unauthorized();
             }
-            var claims = new[]
+            var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-                new Claim(ClaimTypes.Name,user.Username)
+                new Claim(ClaimTypes.Name,user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
-            var key=new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-            var creds=new SigningCredentials(key,SecurityAlgorithms.HmacSha512Signature);
-            var TokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject=new ClaimsIdentity(claims),
-                Expires=DateTime.Now.AddDays(3),
-                SigningCredentials=creds
-            };
-            var tokenHandler = new JsonWebTokenHandler();
-            var token = tokenHandler.CreateToken(TokenDescriptor);
+            var jwtToken = getToken(authClaims);
+            var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
+            var expiration = DateTime.Now.AddDays(3);
             return Ok(new
             {
-                token=token
+                token = token
             });
+
+        }
+        //helper functions
+
+        private JwtSecurityToken getToken(List<Claim> authClims)
+        {
+            var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._configuration["JWT:Secret"]));
+            var token = new JwtSecurityToken(
+                issuer: this._configuration["JWT:ValidIssuer"],
+                audience: this._configuration["JWT:ValidAudience"],
+                expires: DateTime.Now.AddHours(3),
+                claims: authClims,
+                signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256)
+                );
+            return token;
+
         }
     }
 }

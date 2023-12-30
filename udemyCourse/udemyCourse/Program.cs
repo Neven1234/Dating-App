@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
+using System.Net;
 using System.Text;
+using udemyCourse.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,20 +25,15 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 builder.Services.AddScoped<IRepository, Repository>();
 
 
-//authorization
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey
-            (Encoding.ASCII.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value)),
-            ValidateIssuer = false,
-            ValidateAudience=false
-        };
 
-    });
+//authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+});
+
 
 var app = builder.Build();
 
@@ -45,6 +43,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseExceptionHandler(builder =>
+{
+    builder.Run(async context =>
+    {
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        var error = context.Features.Get<IExceptionHandlerFeature>();
+        if (error != null)
+        {
+            context.Response.AddApplicationError(error.Error.Message);
+            await context.Response.WriteAsync(error.Error.Message);
+        }
+    });
+});
 
 app.UseHttpsRedirection();
 

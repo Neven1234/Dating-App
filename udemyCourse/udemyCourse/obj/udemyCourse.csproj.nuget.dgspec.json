@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Learn C#\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj": {}
+    "D:\\iti .net\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj": {}
   },
   "projects": {
-    "D:\\Learn C#\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj": {
+    "D:\\iti .net\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Learn C#\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj",
+        "projectUniqueName": "D:\\iti .net\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj",
         "projectName": "udemyCourse",
-        "projectPath": "D:\\Learn C#\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj",
+        "projectPath": "D:\\iti .net\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj",
         "packagesPath": "C:\\Users\\JC.TECH\\.nuget\\packages\\",
-        "outputPath": "D:\\Learn C#\\Udemy-Course\\udemyCourse\\udemyCourse\\obj\\",
+        "outputPath": "D:\\iti .net\\Udemy-Course\\udemyCourse\\udemyCourse\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

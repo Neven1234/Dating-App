@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GDGw7EaaN93cBPHES2O1JpGbIuyWnbyoXONjYiAjSFvkn1fdzAnr7xqgpOO0fWg/k2ArZi74pjfFJ+fiGZ5oCA==",
+  "dgSpecHash": "4awJArw0OSDuJwspNmVsW+S3qs8LsFdIkL8DxnZXyNWRFZmX2AzuuAIFyeocUcoVqOIlI14sLKD1SRkq9JSp/w==",
   "success": true,
-  "projectFilePath": "D:\\Learn C#\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj",
+  "projectFilePath": "D:\\iti .net\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\JC.TECH\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
