@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Fixed navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Matches</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " >Messages</a>
+          </li>
+        </ul>
+        <div *ngIf=" LoggedIn()" class="dropdown">
+          <a class=" dropdown-toggle text-light"  data-bs-toggle="dropdown" >
+           Welcom user
+          </a>
+          <ul class="dropdown-menu text-light">
+            <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edit profile</a></li>
+           <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item" (click)="LogOut()"><i class="fa fa-sign-out"></i>Log out</a></li>
+          </ul>
+        </div>
+        <form *ngIf="!LoggedIn()" #logInForm="ngForm" class="d-flex" role="search" (ngSubmit)="LogIn()">
+          <input class="form-control me-2" type="text" placeholder="username" name="username" aria-label="username" required [(ngModel)]="user.username">
+          <input class="form-control me-2" type="password" placeholder="password" name="password" aria-label="password" required [(ngModel)]="user.password">
+          <button [disabled]="!logInForm.valid" class="btn btn-outline-success" type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  
