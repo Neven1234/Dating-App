@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './Components/nav/nav.component';
@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from './_service/user.service';
 import { HomeComponent } from './Components/home/home.component';
 import { RegisterComponent } from './Components/register/register.component';
-import {  ErrorInspecter, ErrorInterceptorProvider } from './ErrorHandel/ErrorIntercepter';
+import {  ErrorInspecter } from './ErrorHandel/ErrorIntercepter';
 
 @NgModule({
   declarations: [
@@ -26,6 +26,11 @@ import {  ErrorInspecter, ErrorInterceptorProvider } from './ErrorHandel/ErrorIn
   ],
   providers: [
     UserService,
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: ErrorInspecter,
+        multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

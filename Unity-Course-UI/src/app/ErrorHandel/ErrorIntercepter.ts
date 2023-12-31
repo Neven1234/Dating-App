@@ -39,9 +39,3 @@ export class ErrorInspecter implements HttpInterceptor{
     
     
 }
-export const ErrorInterceptorProvider={
-    Provide:  HTTP_INTERCEPTORS,
-    useClass: ErrorInspecter,
-    multi: true
-   
-}
