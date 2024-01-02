@@ -10,6 +10,7 @@ import { UserService } from './_service/user.service';
 import { HomeComponent } from './Components/home/home.component';
 import { RegisterComponent } from './Components/register/register.component';
 import {  ErrorInspecter } from './ErrorHandel/ErrorIntercepter';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {  ErrorInspecter } from './ErrorHandel/ErrorIntercepter';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BsDropdownModule.forRoot()
   ],
   providers: [
     UserService,

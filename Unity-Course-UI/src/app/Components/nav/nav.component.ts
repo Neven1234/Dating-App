@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { user } from '../../Models/User';
 import { UserService } from '../../_service/user.service';
+import { AlertifyService } from '../../_service/alertify.service';
 
 @Component({
   selector: 'app-nav',
@@ -12,24 +13,23 @@ export class NavComponent implements OnInit {
     username:'',
     password:''
   }
-  constructor(private serivices:UserService){}
+  constructor(public serivices:UserService,private Alertify:AlertifyService){}
   ngOnInit(): void {
     
   }
   LogIn()
   {
     this.serivices.LogIn(this.user).subscribe(next=>{
-      console.log('logged in successfuly')
+      this.Alertify.success('logged in successfuly')
     },error=>{
-      console.log('failed to login')
+     this.Alertify.error('failed to login')
     })
   }
   LoggedIn(){
-    var token=localStorage.getItem('token')
-    return !! token
+    return this.serivices.LoggedIn();
   }
   LogOut(){
     localStorage.removeItem('token')
-    console.log('loged out')
+   this.Alertify.message('loged out')
   }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RepositoryLayer;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
 using udemyCourse.Helpers;
@@ -27,6 +28,10 @@ builder.Services.AddScoped<IRepository, Repository>();
 
 
 //authentication
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+JwtSecurityTokenHandler.DefaultOutboundClaimTypeMap.Clear();
+
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

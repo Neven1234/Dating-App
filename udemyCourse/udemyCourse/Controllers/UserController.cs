@@ -52,7 +52,7 @@ namespace udemyCourse.Controllers
             }
             var authClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name,user.Username),
+                new Claim("name",user.Username),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
             var jwtToken = getToken(authClaims);

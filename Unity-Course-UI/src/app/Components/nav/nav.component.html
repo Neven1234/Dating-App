@@ -1,11 +1,11 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Fixed navbar</a>
+    <div class="container">
+      <a class="navbar-brand" href="#">Dating app</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <div  class="collapse navbar-collapse" id="navbarCollapse">
+        <ul *ngIf=" LoggedIn()" class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">Matches</a>
           </li>
@@ -16,14 +16,14 @@
             <a class="nav-link " >Messages</a>
           </li>
         </ul>
-        <div *ngIf=" LoggedIn()" class="dropdown">
+        <div *ngIf=" LoggedIn()" class="dropdown" >
           <a class=" dropdown-toggle text-light"  data-bs-toggle="dropdown" >
-           Welcom user
+           Welcom {{ serivices.decodedToken?.name}}
           </a>
           <ul class="dropdown-menu text-light">
-            <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Edit profile</a></li>
+            <li><a class="dropdown-item" ><i class="fa fa-user" aria-hidden="false"></i> Edit profile</a></li>
            <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" (click)="LogOut()"><i class="fa fa-sign-out"></i>Log out</a></li>
+            <li><a class="dropdown-item"  (click)="LogOut()"><i class="fa fa-sign-out" aria-hidden="false"></i>Log out</a></li>
           </ul>
         </div>
         <form *ngIf="!LoggedIn()" #logInForm="ngForm" class="d-flex" role="search" (ngSubmit)="LogIn()">
