@@ -11,13 +11,19 @@ import { HomeComponent } from './Components/home/home.component';
 import { RegisterComponent } from './Components/register/register.component';
 import {  ErrorInspecter } from './ErrorHandel/ErrorIntercepter';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { MemberListComponent } from './Components/member-list/member-list.component';
+import { MessagesComponent } from './Components/messages/messages.component';
+import { ListsComponent } from './Components/lists/lists.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    MemberListComponent,
+    MessagesComponent,
+    ListsComponent
   ],
   imports: [
     BrowserModule,
