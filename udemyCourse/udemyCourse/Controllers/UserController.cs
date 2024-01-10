@@ -1,83 +1,39 @@
-﻿using DomainLayer.Models;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
-using RepositoryLayer;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+using System.Collections.Generic;
+using udemyCourse.Data;
 using udemyCourse.Dtos;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace udemyCourse.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IRepository _repository;
-        private readonly IConfiguration _configuration;
+        private readonly IDatingRepository _datingRepository;
+        private readonly IMapper _mapper;
 
-        public UserController(IRepository repository,IConfiguration configuration)
+        public UserController(IDatingRepository datingRepository,IMapper mapper)
         {
-            this._repository = repository;
-            this._configuration = configuration;
+            _datingRepository = datingRepository;
+            _mapper = mapper;
         }
-        [HttpPost("register")]
-        public async Task<IActionResult> Register(UserForRegisterDTO userForRegisterDTO)
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
         {
-            userForRegisterDTO.Username= userForRegisterDTO.Username.ToLower();
-            if(await _repository.UserExist(userForRegisterDTO.Username))
-            {
-                return BadRequest("user already exist");
-            }
-            var userToCreate = new User
-            {
-                Username = userForRegisterDTO.Username
-            };
-            var createduser = await _repository.Register(userToCreate, userForRegisterDTO.Password);
-            return StatusCode(201);
+            var users= await _datingRepository.GetAllAsync();
+            var userListToReturn = _mapper.Map<IEnumerable<UserForListDTO>>(users);
+            return Ok(userListToReturn);
         }
-
-        //log in
-        [HttpPost("Login")]
-        public async Task<IActionResult> LogIn(UserForLoginDTO userForLoginDTO)
+        [HttpGet("{id:int}")]
+        public async Task <IActionResult> GetUser(int id)
         {
-    
-            var user=await _repository.Login(userForLoginDTO.Username, userForLoginDTO.Password);
-            if(user==null)
-            {
-                return Unauthorized();
-            }
-            var authClaims = new List<Claim>
-            {
-                new Claim("name",user.Username),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
-            };
-            var jwtToken = getToken(authClaims);
-            var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            var expiration = DateTime.Now.AddDays(3);
-            return Ok(new
-            {
-                token = token
-            });
-
-        }
-        //helper functions
-
-        private JwtSecurityToken getToken(List<Claim> authClims)
-        {
-            var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._configuration["JWT:Secret"]));
-            var token = new JwtSecurityToken(
-                issuer: this._configuration["JWT:ValidIssuer"],
-                audience: this._configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
-                claims: authClims,
-                signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256)
-                );
-            return token;
-
+            var user=await _datingRepository.GetAsync(id);
+            var userToREturn= _mapper.Map<UserForDetailsDTO>(user);
+            return Ok(userToREturn);
         }
     }
 }

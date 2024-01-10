@@ -1,4 +1,4 @@
-﻿using DomainLayer.Models;
+﻿
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -6,14 +6,16 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using udemyCourse;
+using udemyCourse.Models;
 
-namespace RepositoryLayer
+namespace udemyCourse
 {
-    public class Repository : IRepository
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _dbContext;
 
-        public Repository(AppDbContext dbContext)
+        public UserRepository(AppDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
