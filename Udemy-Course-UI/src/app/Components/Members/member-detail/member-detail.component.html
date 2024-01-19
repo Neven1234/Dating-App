@@ -46,7 +46,32 @@
                 <p>{{ user.interests }}</p>
             </tab>
            <tab heading="Photos">
-            
+            <div class="gallery-lightbox-container">
+                <div class="gallery">
+                    <div class="gallery-img" *ngFor="let image of imges; let i=index" >
+                        <img (click)="onPreviewImage(i)" src="{{image}}" alt={{image}}>
+                    </div>
+                </div>
+                <div *ngIf="showMask" class="lightbox">
+                    <span *ngIf="showCount" class="count">{{currentIndex+1}}/{{totalImageCount}}</span>
+                    <button *ngIf="previewImage" class="close-btn" (click)="onClosePreview()">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
+                    <button *ngIf="controles" class="btn-lightbox-carousel btn-prev" (click)="prev()">
+                        <i class="fa fa-arrow-left icon-lightbox-carousel icon-prev"></i>
+                    </button>
+                    <button *ngIf="controles"  class="btn-lightbox-carousel btn-next" (click)="next()">
+                        <i class="fa fa-arrow-right icon-lightbox-carousel icon-next"></i>
+                    </button>
+                    <div *ngIf="previewImage"
+                    
+                     class="lightbox-img">
+                        <img class="img-class" src="{{currentLightboxImage}}" alt="">
+                    </div>
+                </div>
+            </div>
+               
+               
            </tab>
            <tab heading="Messages">
             <p>Messages here</p>

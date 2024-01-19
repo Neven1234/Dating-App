@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { LightgalleryModule } from 'lightgallery/angular'
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -40,6 +41,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    LightgalleryModule
   ],
   providers: [
     AuthService,
