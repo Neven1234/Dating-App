@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './_service/user.service';
+import { AuthService } from './_service/Auth.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private userService:UserService){}
+  constructor(private userService:AuthService){}
   title = 'Unity-Course-UI';
   jwtHelper= new JwtHelperService();
   ngOnInit(): void {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { user } from '../../Models/User';
-import { UserService } from '../../_service/user.service';
+import { Auth } from '../../Models/User';
+import { AuthService } from '../../_service/Auth.service';
 import { AlertifyService } from '../../_service/alertify.service';
 import { Router } from '@angular/router';
 
@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
   styleUrl: './nav.component.css'
 })
 export class NavComponent implements OnInit {
-  user:user={
+  user:Auth={
     username:'',
     password:''
   }
-  constructor(public serivices:UserService,private Alertify:AlertifyService,private router:Router){}
+  constructor(public serivices:AuthService,private Alertify:AlertifyService,private router:Router){}
   ngOnInit(): void {
     
   }
@@ -22,6 +22,7 @@ export class NavComponent implements OnInit {
   {
     this.serivices.LogIn(this.user).subscribe(next=>{
       this.Alertify.success('logged in successfuly')
+      console.log(localStorage.getItem('token'))
       this.router.navigate(['/members'])
 
     },error=>{

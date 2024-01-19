@@ -8,8 +8,16 @@ namespace udemyCourse.Helpers
     {
         public AutoMapperProfiles() 
         { 
-            CreateMap<User,UserForDetailsDTO>();
-            CreateMap<User,UserForListDTO>();
+            CreateMap<User,UserForDetailsDTO>()
+                .ForMember(des => des.PhotoUrl, opt => opt.MapFrom(src =>
+                     src.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(des => des.Age, opt => opt.MapFrom(src =>
+                    src.DateOfBirth.CalculateAge()));
+            CreateMap<User, UserForListDTO>()
+                .ForMember(des => des.PhotoUrl, opt => opt.MapFrom(src =>
+                     src.Photos.FirstOrDefault(p => p.IsMain).Url))
+                .ForMember(des => des.Age, opt => opt.MapFrom(src =>
+                    src.DateOfBirth.CalculateAge()));
         }
     }
 }

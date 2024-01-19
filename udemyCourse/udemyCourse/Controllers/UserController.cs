@@ -26,6 +26,7 @@ namespace udemyCourse.Controllers
         {
             var users= await _datingRepository.GetAllAsync();
             var userListToReturn = _mapper.Map<IEnumerable<UserForListDTO>>(users);
+
             return Ok(userListToReturn);
         }
         [HttpGet("{id:int}")]
