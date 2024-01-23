@@ -18,6 +18,8 @@ import { ListsComponent } from './Components/lists/lists.component';
 import { MemberCardComponent } from './Components/Members/member-card/member-card.component';
 import { MemberDetailComponent } from './Components/Members/member-detail/member-detail.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { MemberEditComponent } from './Components/Members/member-edit/member-edit.component';
+import { PreventUnsavedChanges } from './_guards/prevent-unsavedChanges.guard';
 
 
 
@@ -32,7 +34,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     MessagesComponent,
     ListsComponent,
     MemberCardComponent,
-    MemberDetailComponent
+    MemberDetailComponent,
+    MemberEditComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
         provide: HTTP_INTERCEPTORS,
         useClass: ErrorInspecter,
         multi: true
-    }
+    },
+    PreventUnsavedChanges
   ],
   bootstrap: [AppComponent]
 })

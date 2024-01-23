@@ -3,9 +3,6 @@ import { User } from '../../../Models/UserDTO';
 import { UserService } from '../../../_service/user.service';
 import { AlertifyService } from '../../../_service/alertify.service';
 import { ActivatedRoute } from '@angular/router';
-import { Photo } from '../../../Models/photos';
-import { animate, style, transition, trigger,AnimationEvent } from '@angular/animations';
-import { transform } from 'typescript';
 
 
 @Component({

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Claims;
 using udemyCourse.Data;
 using udemyCourse.Dtos;
 
@@ -35,6 +36,22 @@ namespace udemyCourse.Controllers
             var user=await _datingRepository.GetAsync(id);
             var userToREturn= _mapper.Map<UserForDetailsDTO>(user);
             return Ok(userToREturn);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateUser(int id,UserForUpdateDTO userForUpdateDTO)
+        {
+            if (id != int.Parse(User.FindFirstValue("userId")))
+            {
+                return Unauthorized();
+            }
+            var userFromRepo = await _datingRepository.GetAsync(id);
+            _mapper.Map(userForUpdateDTO, userFromRepo);
+            if(await _datingRepository.SaveAll())
+            {
+                return NoContent();
+            }
+            throw new Exception($"Updating user {id} failed on save");
         }
     }
 }

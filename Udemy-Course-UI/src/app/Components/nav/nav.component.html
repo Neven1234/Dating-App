@@ -21,7 +21,7 @@
            Welcom {{ serivices.decodedToken?.name}}
           </a>
           <ul class="dropdown-menu text-light">
-            <li><a class="dropdown-item" ><i class="fa fa-user" aria-hidden="false"></i> Edit profile</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/user/edit']"><i class="fa fa-user" aria-hidden="false"></i> Edit profile</a></li>
            <div class="dropdown-divider"></div>
             <li><a class="dropdown-item"  (click)="LogOut()"><i class="fa fa-sign-out" aria-hidden="false"></i>Log out</a></li>
           </ul>

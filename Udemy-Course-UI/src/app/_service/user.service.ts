@@ -26,4 +26,8 @@ export class UserService {
   GetUser(id:number):Observable<User>{
     return this.http.get<User>(this.baseUrl+'/api/User/'+id,HttpOptions)
   }
+  //update user
+  UpdateUser(id:number,user:User){
+    return this.http.put(this.baseUrl+'/api/User/'+id,user,HttpOptions)
+  }
 }
