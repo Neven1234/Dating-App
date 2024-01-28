@@ -154,3 +154,4 @@ D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\Data\UserSeedD
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\AutoMapper.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\CloudinaryDotNet.dll

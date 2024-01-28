@@ -58,6 +58,9 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IDatingRepository,DatingRepository>();
 
+//Clodinary settings
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+
 builder.Services.AddAutoMapper(typeof(DatingRepository).Assembly);
 //authentication
 JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();

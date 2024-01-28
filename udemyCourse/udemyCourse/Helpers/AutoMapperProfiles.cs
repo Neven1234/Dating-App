@@ -19,6 +19,8 @@ namespace udemyCourse.Helpers
                 .ForMember(des => des.Age, opt => opt.MapFrom(src =>
                     src.DateOfBirth.CalculateAge()));
             CreateMap<UserForUpdateDTO, User>();
+            CreateMap<Photo, PhotoForReturnDTO>();
+            CreateMap<PhotoForCreationDTO, Photo>();
         }
     }
 }
