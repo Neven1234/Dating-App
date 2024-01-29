@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { User } from '../Models/UserDTO';
+import { Photo } from '../Models/photos';
 
 const HttpOptions={
   headers:new HttpHeaders({
@@ -29,5 +30,14 @@ export class UserService {
   //update user
   UpdateUser(id:number,user:User){
     return this.http.put(this.baseUrl+'/api/User/'+id,user,HttpOptions)
+  }
+
+  //uploadImage
+  UploadImage(fileToUpload:File,userId:number)
+  {
+    const formData = new FormData();
+
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.http.post(this.baseUrl+'/api/User/'+userId+'/Photos',formData,HttpOptions)
   }
 }

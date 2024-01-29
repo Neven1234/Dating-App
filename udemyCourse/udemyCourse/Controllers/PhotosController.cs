@@ -44,13 +44,15 @@ namespace udemyCourse.Controllers
             return Ok( photo );
         }
         [HttpPost]
-        public async Task<IActionResult>AddPhotoForUser(int userId,[FromForm]PhotoForCreationDTO photoForCreationDTO)
+        public async Task<IActionResult>AddPhotoForUser(int userId,[FromForm] PhotoForCreationDTO photoForCreationDTO)
         {
             if (userId != int.Parse(User.FindFirstValue("userId")))
             {
                 return Unauthorized();
             }
+            //PhotoForCreationDTO photoForCreationDTO = new PhotoForCreationDTO();
             var userFromRepo = await _repository.GetAsync(userId);
+            //photoForCreationDTO.File = file;
             var file=photoForCreationDTO.File;
             var UploadResolt = new ImageUploadResult();
             if(file.Length>0)

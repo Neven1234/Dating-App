@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { LightgalleryModule } from 'lightgallery/angular'
+import { LightgalleryModule } from 'lightgallery/angular';
+
+
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +22,8 @@ import { MemberDetailComponent } from './Components/Members/member-detail/member
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberEditComponent } from './Components/Members/member-edit/member-edit.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsavedChanges.guard';
+import { PhotoEditorComponent } from './Components/Members/photo-editor/photo-editor.component';
+
 
 
 
@@ -35,7 +39,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsavedChanges.guard';
     ListsComponent,
     MemberCardComponent,
     MemberDetailComponent,
-    MemberEditComponent
+    MemberEditComponent,
+    PhotoEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,8 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsavedChanges.guard';
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    LightgalleryModule
+    LightgalleryModule,
+
   ],
   providers: [
     AuthService,
