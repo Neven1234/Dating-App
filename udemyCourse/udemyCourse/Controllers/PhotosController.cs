@@ -77,6 +77,7 @@ namespace udemyCourse.Controllers
             photoForCreationDTO.PublicId = UploadResolt.PublicId;
             //mapping
             var photo = _mapper.Map<Photo>(photoForCreationDTO);
+            photo.UserId = userId;
             var flag = userFromRepo.Photos.Any(u => u.IsMain);
             if (!flag)
             {
@@ -89,9 +90,41 @@ namespace udemyCourse.Controllers
                 var photoToreturn = _mapper.Map<PhotoForReturnDTO>(photo);
                 var routerValues = new { id = photoToreturn.Id };
 
-                return Ok(photoToreturn.Id);
+                return Ok(photoToreturn);
             }
             return BadRequest("Could not add the photo");
         }
+
+        [HttpPost("{id}/setMain")]
+        public async Task<IActionResult> SetToMain(int userId,int id)
+        {
+            if (userId != int.Parse(User.FindFirstValue("userId")))
+            {
+                return Unauthorized();
+            }
+            var user=await _repository.GetAsync(userId);
+            if(!user.Photos.Any(p=>p.Id==id))
+            {
+                return Unauthorized();
+
+            }
+            var photoFromRepo = await _repository.GetPhotoAsynk(id);
+            if (photoFromRepo.IsMain)
+            {
+                return BadRequest("this is already the main photo");
+            }
+            var currentMain = await _repository.GetMainPhoto(userId);
+            currentMain.IsMain = false;
+            photoFromRepo.IsMain = true;
+            if (await _repository.SaveAll())
+            {
+                return NoContent();
+            }
+            else
+                return BadRequest("couldn't set the photo to main ");
+        }
+
+        
     }
+
 }

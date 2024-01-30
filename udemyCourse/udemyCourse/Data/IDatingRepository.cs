@@ -11,5 +11,6 @@ namespace udemyCourse.Data
         Task<IEnumerable<User>> GetAllAsync();
         Task<User> GetAsync(int id);
         Task <Photo> GetPhotoAsynk(int id);
+        Task<Photo> GetMainPhoto(int userId);
     }
 }

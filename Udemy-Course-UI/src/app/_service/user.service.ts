@@ -33,11 +33,15 @@ export class UserService {
   }
 
   //uploadImage
-  UploadImage(fileToUpload:File,userId:number)
+  UploadImage(fileToUpload:File,userId:number):Observable<Photo>
   {
     const formData = new FormData();
 
     formData.append('file', fileToUpload, fileToUpload.name);
-    return this.http.post(this.baseUrl+'/api/User/'+userId+'/Photos',formData,HttpOptions)
+    return this.http.post<Photo>(this.baseUrl+'/api/User/'+userId+'/Photos',formData,HttpOptions)
+  }
+  //set main photo
+  setMainPhoto(userId:number,id:number){
+    return this.http.post(this.baseUrl+'/api/User/'+userId+'/Photos/'+id+'/setMain',{},HttpOptions)
   }
 }

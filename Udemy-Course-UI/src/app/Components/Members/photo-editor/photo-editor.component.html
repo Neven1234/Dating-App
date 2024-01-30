@@ -1,9 +1,13 @@
+
 <div class="gallery-lightbox-container">
     <div class="gallery">
         <div class="gallery-img" *ngFor="let photo of photos" >
-            <img  class="img-thumnail p-1" src="{{photo.url}}" alt="">
+            <img  class="img-thumnail " src="{{photo.url}}" alt="">
             <div class="text-center"> 
-                <button type="button" class="btn btn-sm">Main</button>
+                <button type="button" class="btn btn-sm" style="margin-right: 5px;"
+                [ngClass]="photo.isMain ? 'btn-success active': 'btn-secondary'"
+                 (click)="setMainPhoto(photo)" 
+                 [disabled]="photo.isMain">Main</button>
                 <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></button>
             </div>
         </div>

@@ -32,6 +32,12 @@ namespace udemyCourse.Data
             return user;
         }
 
+        public async Task<Photo> GetMainPhoto(int userId)
+        {
+           
+            return await _dbContext.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
+        }
+
         public async Task<Photo> GetPhotoAsynk(int id)
         {
             var photo = await _dbContext.Photos.FirstOrDefaultAsync(p => p.Id == id);
