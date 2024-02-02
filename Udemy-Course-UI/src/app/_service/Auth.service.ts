@@ -27,6 +27,7 @@ export class AuthService {
     city: '',
     country: '',
     lookingFor: ''
+    
   }
   
   photoUrl=new BehaviorSubject<string>('../../assets/user.png')
