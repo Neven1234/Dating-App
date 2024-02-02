@@ -14,13 +14,14 @@ export class NavComponent implements OnInit {
     username:'',
     password:''
   }
-  constructor(public serivices:AuthService,private Alertify:AlertifyService,private router:Router){}
+  photoUrl:string=''
+  constructor(public auth:AuthService,private Alertify:AlertifyService,private router:Router){}
   ngOnInit(): void {
-    
+    this.auth.currentPhotoUrl.subscribe(photoUrl=>this.photoUrl=photoUrl)
   }
   LogIn()
   {
-    this.serivices.LogIn(this.user).subscribe(next=>{
+    this.auth.LogIn(this.user).subscribe(next=>{
       this.Alertify.success('logged in successfuly')
       console.log(localStorage.getItem('token'))
       this.router.navigate(['/members'])
@@ -30,7 +31,7 @@ export class NavComponent implements OnInit {
     })
   }
   LoggedIn(){
-    return this.serivices.LoggedIn();
+    return this.auth.LoggedIn();
   }
   LogOut(){
     localStorage.removeItem('token')

@@ -22,7 +22,7 @@ export class PhotoEditorComponent implements OnInit {
   selectedImage=false
   currentMain: Photo | undefined
 
-  constructor(private uerService:UserService,private auth:AuthService,
+  constructor(private userService:UserService,private auth:AuthService,
     private alertfay:AlertifyService){}
   ngOnInit(): void {
     
@@ -40,7 +40,7 @@ export class PhotoEditorComponent implements OnInit {
       console.log('esm el soraaa: '+ this.fileToUpload)
     }
     onSubmit(Image: any){
-      this.uerService.UploadImage(this.fileToUpload,this.auth.decodedToken.userId).subscribe({
+      this.userService.UploadImage(this.fileToUpload,this.auth.decodedToken.userId).subscribe({
         next:(res)=>{
           console.log('id el sora ',res)
           this.selectedImage=false
@@ -68,7 +68,7 @@ export class PhotoEditorComponent implements OnInit {
 
     //set to main
     setMainPhoto(photo:Photo){
-      this.uerService.setMainPhoto(this.auth.decodedToken.userId,photo.id).subscribe({
+      this.userService.setMainPhoto(this.auth.decodedToken.userId,photo.id).subscribe({
         next:(res)=>{
           this.currentMain=this.photos?.filter(p=>p.isMain===true)[0]
           photo.isMain=true
@@ -76,8 +76,9 @@ export class PhotoEditorComponent implements OnInit {
           {
             this.currentMain.isMain=false
           }
-          this.memberPhotoChange.emit(photo.url)
-          
+          this.auth.changeMemberPhoto(photo.url)
+          this.auth.currenUser.photoUrl=photo.url
+          localStorage.setItem('user',JSON.stringify(this.auth.currenUser))
           this.alertfay.success('photo set to main successfully')
         },
         error:(error)=>{
@@ -85,4 +86,20 @@ export class PhotoEditorComponent implements OnInit {
         }
       })
     }
+
+    deletePhoto(id:number)
+    {
+      this.alertfay.Confirm('Are you sure you want to delete this photo',()=>{
+        this.userService.deletePhoto(this.auth.decodedToken.userId,id).subscribe({
+          next:(result)=>{
+            this.photos?.splice(this.photos.findIndex(p=>p.id===id),1)
+            this.alertfay.success('Photo has been deleted successfully')
+          },
+          error:(error)=>{
+            this.alertfay.error('Failed to delete the photo')
+          }
+        })
+      })
+    }
+
 }

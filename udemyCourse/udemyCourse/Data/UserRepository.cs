@@ -21,7 +21,8 @@ namespace udemyCourse
         }
         public async Task<User> Login(string username, string password)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _dbContext.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Username == username);
+
             if(user == null)
             {
                 return null;

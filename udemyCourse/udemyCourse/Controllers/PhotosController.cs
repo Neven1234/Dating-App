@@ -124,7 +124,51 @@ namespace udemyCourse.Controllers
                 return BadRequest("couldn't set the photo to main ");
         }
 
-        
+
+        //Delete photo
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletPhoto(int userId, int id)
+        {
+            if (userId != int.Parse(User.FindFirstValue("userId")))
+            {
+                return Unauthorized();
+            }
+            var user = await _repository.GetAsync(userId);
+            if (!user.Photos.Any(p => p.Id == id))
+            {
+                return Unauthorized();
+
+            }
+            var photoFromRepo = await _repository.GetPhotoAsynk(id);
+            if (photoFromRepo.IsMain)
+            {
+                return BadRequest("you can't delete your main photo");
+            }
+            if (photoFromRepo.PublicId != null)
+            {
+                var deletePramas = new DeletionParams(photoFromRepo.PublicId);
+                var result = _Cloudinary.Destroy(deletePramas);
+                if (result.Result == "ok")
+                {
+                    _repository.Delete(photoFromRepo);
+                }
+            }
+            else if (photoFromRepo.PublicId == null)
+            {
+                _repository.Delete(photoFromRepo);
+            }
+            if (await _repository.SaveAll())
+            {
+                return Ok();
+            }
+
+            return BadRequest("failed to delete the photo");
+        }
+
+
+
+
+
     }
 
 }

@@ -9,6 +9,7 @@ const HttpOptions={
   headers:new HttpHeaders({
     'Authorization':'Bearer '+localStorage.getItem('token')
   })
+  
 }
 
 @Injectable({
@@ -43,5 +44,10 @@ export class UserService {
   //set main photo
   setMainPhoto(userId:number,id:number){
     return this.http.post(this.baseUrl+'/api/User/'+userId+'/Photos/'+id+'/setMain',{},HttpOptions)
+  }
+
+  //delete photo
+  deletePhoto(userId:number,id:number){
+    return this.http.delete(this.baseUrl+'/api/User/'+userId+'/Photos/'+id,HttpOptions)
   }
 }

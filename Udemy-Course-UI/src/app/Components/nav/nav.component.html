@@ -16,9 +16,12 @@
             <a class="nav-link " [routerLink]="['/messages']">Messages</a>
           </li>
         </ul>
-        <div *ngIf=" LoggedIn()" class="dropdown" >
+        <div style="margin-left: 70%;" *ngIf=" LoggedIn()" class="dropdown" >
+          <span class="mr-1">
+            <img style="width: 20%; margin-right: 4px;" src="{{photoUrl}}" alt="">
+          </span>
           <a class=" dropdown-toggle text-light"  data-bs-toggle="dropdown" >
-           Welcom {{ serivices.decodedToken?.name}}
+           Welcom {{ auth.decodedToken?.name}}
           </a>
           <ul class="dropdown-menu text-light">
             <li><a class="dropdown-item" [routerLink]="['/user/edit']"><i class="fa fa-user" aria-hidden="false"></i> Edit profile</a></li>

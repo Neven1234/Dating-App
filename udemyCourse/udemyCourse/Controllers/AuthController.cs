@@ -1,4 +1,5 @@
 ﻿
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -19,11 +20,13 @@ namespace udemyCourse.Controllers
     {
         private readonly IUserRepository _repository;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
-        public AuthController(IUserRepository repository,IConfiguration configuration)
+        public AuthController(IUserRepository repository,IConfiguration configuration, IMapper mapper)
         {
-            this._repository = repository;
-            this._configuration = configuration;
+            _repository = repository;
+            _configuration = configuration;
+            _mapper = mapper;
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDTO userForRegisterDTO)
@@ -47,7 +50,8 @@ namespace udemyCourse.Controllers
         {
     
             var user=await _repository.Login(userForLoginDTO.Username, userForLoginDTO.Password);
-            if(user==null)
+            var userToReturn = _mapper.Map<UserForDetailsDTO>(user);
+            if (user==null)
             {
                 return Unauthorized();
             }
@@ -63,7 +67,8 @@ namespace udemyCourse.Controllers
             var expiration = DateTime.Now.AddDays(3);
             return Ok(new
             {
-                token = token
+                token = token,
+                user= userToReturn
             });
 
         }

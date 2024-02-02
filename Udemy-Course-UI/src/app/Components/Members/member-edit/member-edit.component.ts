@@ -29,6 +29,7 @@ export class MemberEditComponent implements OnInit {
     country: '',
     lookingFor: ''
   }
+  photoUrl:string=''
   @HostListener('window:beforeunload',['$event'])
   unloadeNotification($event:any){
     if(this.editForm.dirty){
@@ -40,6 +41,7 @@ export class MemberEditComponent implements OnInit {
   ngOnInit(): void {
     console.log('user id ',this.auth.decodedToken.userId)
     this.LoadeUser()
+    this.auth.currentPhotoUrl.subscribe(photoUrl=>this.photoUrl=photoUrl)
   }
 
 
