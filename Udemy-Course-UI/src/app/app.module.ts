@@ -8,12 +8,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './Components/nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './_service/Auth.service';
 import { HomeComponent } from './Components/home/home.component';
 import { RegisterComponent } from './Components/register/register.component';
 import {  ErrorInspecter } from './ErrorHandel/ErrorIntercepter';
 import { BsDropdownModule,  } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MemberListComponent } from './Components/Members/member-list/member-list.component';
 import { MessagesComponent } from './Components/messages/messages.component';
 import { ListsComponent } from './Components/lists/lists.component';
@@ -44,12 +46,15 @@ import { PhotoEditorComponent } from './Components/Members/photo-editor/photo-ed
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     LightgalleryModule,
+    BsDatepickerModule.forRoot(),
 
   ],
   providers: [

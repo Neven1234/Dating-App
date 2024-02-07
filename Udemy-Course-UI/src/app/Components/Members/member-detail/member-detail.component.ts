@@ -25,8 +25,6 @@ export class MemberDetailComponent implements OnInit {
     lookingFor: ''
   }
   imges:string[]=[
-    'https://randomuser.me/api/portraits/women/7.jpg',
-    'https://randomuser.me/api/portraits/women/17.jpg',
   ]
   previewImage=false
   showMask=false

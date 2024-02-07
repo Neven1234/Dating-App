@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators'
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../Models/UserDTO';
+import { UserToRegister } from '../Models/UserToRegistDtO';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,7 +41,7 @@ export class AuthService {
   }
 
   //login
-  public LogIn(user:Auth){
+  public LogIn(user:any){
     return this.http.post(this.baseURL+'/api/Auth/Login',user)
     .pipe(
       map((response:any)=>{
@@ -67,9 +68,10 @@ export class AuthService {
 
 
   //regiter
-  public Register(user:Auth){
-    return this.http.post(this.baseURL+'api/Auth/register',user)
+  public Register(user:UserToRegister){
+   
+    return this.http.post(this.baseURL+'/api/Auth/register',user)
   }
 
- 
+
 }

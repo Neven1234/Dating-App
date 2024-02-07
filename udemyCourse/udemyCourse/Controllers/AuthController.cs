@@ -36,12 +36,11 @@ namespace udemyCourse.Controllers
             {
                 return BadRequest("user already exist");
             }
-            var userToCreate = new User
-            {
-                Username = userForRegisterDTO.Username
-            };
+            var userToCreate = _mapper.Map<User>(userForRegisterDTO);
+        
             var createduser = await _repository.Register(userToCreate, userForRegisterDTO.Password);
-            return StatusCode(201);
+            var userToReturn = _mapper.Map<UserForDetailsDTO>(createduser);
+            return Ok(userToReturn);
         }
 
         //log in

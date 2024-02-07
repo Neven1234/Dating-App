@@ -18,7 +18,7 @@
         </ul>
         <div style="margin-left: 70%;" *ngIf=" LoggedIn()" class="dropdown" >
           <span class="mr-1">
-            <img style="width: 20%; margin-right: 4px;" src="{{photoUrl}}" alt="">
+            <img style="width: 20%; margin-right: 4px;" src="{{photoUrl || '../../../../../assets/user.png'}}" alt="">
           </span>
           <a class=" dropdown-toggle text-light"  data-bs-toggle="dropdown" >
            Welcom {{ auth.decodedToken?.name}}
