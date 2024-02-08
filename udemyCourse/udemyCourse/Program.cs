@@ -58,6 +58,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IDatingRepository,DatingRepository>();
 
+builder.Services.AddScoped<LogUserActivity>();
+
 //Clodinary settings
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 

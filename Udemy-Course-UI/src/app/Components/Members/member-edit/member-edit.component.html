@@ -26,11 +26,12 @@
                 </div>
                 <div>
                     <strong>Last Active:</strong>
-                    <p>{{ user.lastActive }}</p>
+                    <p>{{ user.lastActive   | timeago }}</p>
+                    
                 </div>
                 <div>
                     <strong>Member since:</strong>
-                    <p>{{ user.created }}</p>
+                    <p>{{ user.created | date: 'mediumDate' }}</p>
                 </div>
                     <div >
                         <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success w-100">Save changes</button>  

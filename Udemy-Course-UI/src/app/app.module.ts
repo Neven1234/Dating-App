@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LightgalleryModule } from 'lightgallery/angular';
-
+import { TimeagoModule } from "ngx-timeago";
 
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -55,6 +55,7 @@ import { PhotoEditorComponent } from './Components/Members/photo-editor/photo-ed
     TabsModule.forRoot(),
     LightgalleryModule,
     BsDatepickerModule.forRoot(),
+    TimeagoModule.forRoot()
 
   ],
   providers: [

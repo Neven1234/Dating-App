@@ -23,8 +23,9 @@ export class NavComponent implements OnInit {
   {
     this.auth.LogIn(this.user).subscribe(next=>{
       this.Alertify.success('logged in successfuly')
-      console.log(localStorage.getItem('token'))
-      this.router.navigate(['/members'])
+      setTimeout(() => {
+        this.router.navigate(['/members'])
+      }, 1000);      
 
     },error=>{
      this.Alertify.error('failed to login')

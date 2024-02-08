@@ -54,9 +54,9 @@ export class PhotoEditorComponent implements OnInit {
           }
           this.photos?.push(photo)
           if(photo.isMain){
-            this.auth.changeMemberPhoto(photo.url)
-            this.auth.currenUser.photoUrl=photo.url
-            localStorage.setItem('user',JSON.stringify(this.auth.currenUser))
+             this.auth.changeMemberPhoto(photo.url)
+          this.auth.currenUser.photoUrl=photo.url
+          localStorage.setItem('user',JSON.stringify(this.auth.currenUser))
           }
           // setTimeout( ()=>{
           //   window.location.reload()

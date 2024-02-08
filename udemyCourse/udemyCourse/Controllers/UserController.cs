@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using udemyCourse.Data;
 using udemyCourse.Dtos;
+using udemyCourse.Helpers;
 
 namespace udemyCourse.Controllers
 {
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
