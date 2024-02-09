@@ -25,9 +25,13 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { MemberEditComponent } from './Components/Members/member-edit/member-edit.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsavedChanges.guard';
 import { PhotoEditorComponent } from './Components/Members/photo-editor/photo-editor.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
 
 
-
+export function TokenGetter(){
+  return localStorage.getItem('token')
+}
 
 
 @NgModule({
@@ -52,10 +56,19 @@ import { PhotoEditorComponent } from './Components/Members/photo-editor/photo-ed
     ReactiveFormsModule,
     HttpClientModule,
     BsDropdownModule.forRoot(),
+    JwtModule.forRoot({
+      config:{
+        tokenGetter:TokenGetter,
+        allowedDomains:['localhost:7100'],
+        disallowedRoutes:['localhost:7100/api/auth']
+      }
+    }),
     TabsModule.forRoot(),
     LightgalleryModule,
     BsDatepickerModule.forRoot(),
-    TimeagoModule.forRoot()
+    TimeagoModule.forRoot(),
+    PaginationModule.forRoot()
+    
 
   ],
   providers: [

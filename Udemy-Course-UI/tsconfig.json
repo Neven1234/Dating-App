@@ -13,6 +13,7 @@
     "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
+    "strictPropertyInitialization": false,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
@@ -32,7 +33,7 @@
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
+    "strictInjectionParameters": false,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
     

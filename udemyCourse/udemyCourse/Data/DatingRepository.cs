@@ -1,5 +1,7 @@
 ﻿using udemyCourse.Models;
 using Microsoft.EntityFrameworkCore;
+using udemyCourse.Helpers;
+
 namespace udemyCourse.Data
 {
     public class DatingRepository : IDatingRepository
@@ -20,10 +22,11 @@ namespace udemyCourse.Data
             _dbContext.Remove(entity);
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<PageList<User>> GetAllAsync(UserParams userParams)
         {
-            var users= await _dbContext.Users.Include(p=>p.Photos).ToListAsync();
-            return users;
+            var users = _dbContext.Users.Include(p => p.Photos);
+
+            return await PageList<User>.CreateAsync(users,userParams.PageNumber,userParams.PageSize);
         }
 
         public async Task<User> GetAsync(int id)

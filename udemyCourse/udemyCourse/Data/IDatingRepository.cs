@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using udemyCourse.Helpers;
 using udemyCourse.Models;
 
 namespace udemyCourse.Data
@@ -8,7 +9,7 @@ namespace udemyCourse.Data
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveAll();
-        Task<IEnumerable<User>> GetAllAsync();
+        Task<PageList<User>> GetAllAsync(UserParams userParams);
         Task<User> GetAsync(int id);
         Task <Photo> GetPhotoAsynk(int id);
         Task<Photo> GetMainPhoto(int userId);

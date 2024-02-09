@@ -25,13 +25,13 @@ namespace udemyCourse.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users= await _datingRepository.GetAllAsync();
+            var users= await _datingRepository.GetAllAsync(userParams);
             var userListToReturn = _mapper.Map<IEnumerable<UserForListDTO>>(users);
-
+            Response.AddPagination(users.CurentPage, users.PageSize,users.TotalCount,users.TotalPages);
             return Ok(userListToReturn);
-        }
+        } 
         [HttpGet("{id:int}")]
         public async Task <IActionResult> GetUser(int id)
         {
