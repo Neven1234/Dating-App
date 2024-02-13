@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LightgalleryModule } from 'lightgallery/angular';
 import { TimeagoModule } from "ngx-timeago";
-
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -67,8 +67,8 @@ export function TokenGetter(){
     LightgalleryModule,
     BsDatepickerModule.forRoot(),
     TimeagoModule.forRoot(),
-    PaginationModule.forRoot()
-    
+    PaginationModule.forRoot(),
+    ButtonsModule.forRoot(),
 
   ],
   providers: [

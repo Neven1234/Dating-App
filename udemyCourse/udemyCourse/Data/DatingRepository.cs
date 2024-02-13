@@ -24,8 +24,32 @@ namespace udemyCourse.Data
 
         public async Task<PageList<User>> GetAllAsync(UserParams userParams)
         {
-            var users = _dbContext.Users.Include(p => p.Photos);
-
+            var users = _dbContext.Users.Include(p => p.Photos)
+                .OrderByDescending(u=>u.LastActive)
+                .AsQueryable();
+            users = users.Where(u => u.Id != userParams.UserId);
+            if(userParams.Gender != null)
+            {
+                users=users.Where(u=>u.Gender == userParams.Gender);
+            }
+            if(userParams.MinAge!=18 || userParams.MaxAge!=90)
+            {
+                var minDOB=DateTime.Today.AddYears(-userParams.MaxAge-1);
+                var maxDOF = DateTime.Today.AddYears(-userParams.MinAge);
+                users = users.Where(u => u.DateOfBirth >= minDOB && u.DateOfBirth <= maxDOF);
+            }
+            if(!string.IsNullOrEmpty(userParams.OrderBy))
+            {
+                switch(userParams.OrderBy)
+                {
+                    case "created":
+                        users = users.OrderByDescending(u => u.Created);
+                        break;
+                    default:
+                        users=users.OrderByDescending(u => u.LastActive);
+                        break;
+                }
+            }
             return await PageList<User>.CreateAsync(users,userParams.PageNumber,userParams.PageSize);
         }
 

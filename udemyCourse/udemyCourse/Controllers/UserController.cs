@@ -26,7 +26,8 @@ namespace udemyCourse.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
-        {
+        {        
+            userParams.UserId = int.Parse(User.FindFirstValue("userId"));
             var users= await _datingRepository.GetAllAsync(userParams);
             var userListToReturn = _mapper.Map<IEnumerable<UserForListDTO>>(users);
             Response.AddPagination(users.CurentPage, users.PageSize,users.TotalCount,users.TotalPages);
