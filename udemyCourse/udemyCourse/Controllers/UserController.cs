@@ -7,6 +7,7 @@ using System.Security.Claims;
 using udemyCourse.Data;
 using udemyCourse.Dtos;
 using udemyCourse.Helpers;
+using udemyCourse.Models;
 
 namespace udemyCourse.Controllers
 {
@@ -55,6 +56,48 @@ namespace udemyCourse.Controllers
                 return NoContent();
             }
             throw new Exception($"Updating user {id} failed on save");
+        }
+
+        [HttpPost("{id}/like/{recipientId}")]
+
+        public async Task<IActionResult> LikeUser(int id,int recipientId)
+        {
+            if(id!=int.Parse(User.FindFirstValue("userId")))
+            {
+                return Unauthorized();
+            }
+            var like = await _datingRepository.GetLike(id, recipientId);
+            if (like != null)
+                return BadRequest("You already liked this user");
+            if(await _datingRepository.GetAsync(recipientId)==null)
+                return NotFound();
+            like = new Like
+            {
+                LikerId = id,
+                LikeeId = recipientId
+            };
+            _datingRepository.Add(like);
+            if (await _datingRepository.SaveAll())
+                return Ok();
+            return BadRequest("Failed like the user");
+        }
+
+        [HttpDelete("{id}/like/{recipientId}")]
+        public async Task<IActionResult> RemoveLikeUser(int id, int recipientId)
+        {
+            if (id != int.Parse(User.FindFirstValue("userId")))
+            {
+                return Unauthorized();
+            }
+            var like = await _datingRepository.GetLike(id, recipientId);
+            if (like == null)
+            {
+                return BadRequest("this user is not in your like list");
+            }
+            _datingRepository.Delete(like);
+            if (await _datingRepository.SaveAll())
+                return Ok();
+            return BadRequest("Failed like the user");
         }
     }
 }

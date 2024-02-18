@@ -13,5 +13,6 @@ namespace udemyCourse.Data
         Task<User> GetAsync(int id);
         Task <Photo> GetPhotoAsynk(int id);
         Task<Photo> GetMainPhoto(int userId);
+        Task<Like> GetLike(int userId, int recipentId);
     }
 }

@@ -15,6 +15,7 @@ export class NavComponent implements OnInit {
     password:''
   }
   photoUrl:string=''
+  laoding:boolean=false
   constructor(public auth:AuthService,private Alertify:AlertifyService,private router:Router){}
   ngOnInit(): void {
     this.auth.currentPhotoUrl.subscribe(photoUrl=>this.photoUrl=photoUrl)
@@ -23,9 +24,11 @@ export class NavComponent implements OnInit {
   {
     this.auth.LogIn(this.user).subscribe(next=>{
       this.Alertify.success('logged in successfuly')
+      this.laoding=true
       setTimeout(() => {
+        this.laoding=false
         this.router.navigate(['/members'])
-      }, 1000);      
+      }, 1500);      
 
     },error=>{
      this.Alertify.error('failed to login')

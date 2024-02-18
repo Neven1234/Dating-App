@@ -21,6 +21,7 @@
             <img style="width: 20%; margin-right: 4px;" src="{{photoUrl || '../../../../../assets/user.png'}}" alt="">
           </span>
           <a class=" dropdown-toggle text-light"  data-bs-toggle="dropdown" >
+            <div *ngIf="laoding" class="lds-dual-ring"></div>
            Welcom {{ auth.decodedToken?.name}}
           </a>
           <ul class="dropdown-menu text-light">
@@ -33,6 +34,7 @@
           <input class="form-control me-2" type="text" placeholder="username" name="username" aria-label="username" required [(ngModel)]="user.username">
           <input class="form-control me-2" type="password" placeholder="password" name="password" aria-label="password" required [(ngModel)]="user.password">
           <button [disabled]="!logInForm.valid" class="btn btn-outline-success" type="submit">Login</button>
+          
         </form>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { User } from '../../../Models/UserDTO';
 import { UserService } from '../../../_service/user.service';
 import { AlertifyService } from '../../../_service/alertify.service';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../_service/Auth.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class MemberDetailComponent implements OnInit {
   controles=true
   totalImageCount=0
 
-  constructor(private userService:UserService,private alertify:AlertifyService,private route:ActivatedRoute){}
+  constructor(private userService:UserService,private alertify:AlertifyService,private route:ActivatedRoute,private authservice:AuthService){}
   ngOnInit(): void {
     this.LoadeUser()
    
@@ -53,6 +54,18 @@ export class MemberDetailComponent implements OnInit {
       }
     })
   }
+
+  SendLike(){
+    this.userService.sendLike(this.authservice.decodedToken.userId,+this.route.snapshot.params['id']).subscribe({
+      next:(response)=>{
+        this.alertify.success('you have liked '+ this.user.knownAs)
+      },
+      error:(error)=>{
+        this.alertify.error(error)
+      }
+    })
+  }
+
   getImages(){
     
     this.user.photos?.forEach(photo=>{

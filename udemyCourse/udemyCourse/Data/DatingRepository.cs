@@ -32,6 +32,17 @@ namespace udemyCourse.Data
             {
                 users=users.Where(u=>u.Gender == userParams.Gender);
             }
+            if(userParams.Likers)
+            {
+                var userLikers = await GetUserLikes(userParams.UserId, userParams.Likers);
+                users=users.Where(u=>userLikers.Contains(u.Id));
+
+            }
+            if(userParams.Likees)
+            {
+                var userLikees = await GetUserLikes(userParams.UserId, userParams.Likers);
+                users = users.Where(u => userLikees.Contains(u.Id));
+            }
             if(userParams.MinAge!=18 || userParams.MaxAge!=90)
             {
                 var minDOB=DateTime.Today.AddYears(-userParams.MaxAge-1);
@@ -59,6 +70,12 @@ namespace udemyCourse.Data
             return user;
         }
 
+        public async Task<Like> GetLike(int userId, int recipentId)
+        {
+            return await _dbContext.Likes.FirstOrDefaultAsync(u => u.LikerId == userId && u.LikeeId == recipentId);
+             
+        }
+
         public async Task<Photo> GetMainPhoto(int userId)
         {
            
@@ -74,6 +91,26 @@ namespace udemyCourse.Data
         public async Task<bool> SaveAll()
         {
             return await _dbContext.SaveChangesAsync() > 0;
+        }
+
+
+        //heper function
+        private async Task<IEnumerable<int>> GetUserLikes(int id, bool likers)
+        {
+            var user=await _dbContext.Users.Include(x=>x.Likers)
+                .Include(x=>x.Likees)
+                .FirstOrDefaultAsync(u=>u.Id == id);
+            if(likers)
+            {
+                return user.Likers.Where(u => u.LikeeId == id)
+                    .Select(i => i.LikerId);
+
+            }
+            else
+            {
+                return user.Likees.Where(u => u.LikerId == id)
+                    .Select(i => i.LikeeId);
+            }
         }
     }
 }
