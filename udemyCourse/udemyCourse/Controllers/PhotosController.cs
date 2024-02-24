@@ -65,8 +65,8 @@ namespace udemyCourse.Controllers
                         File = new FileDescription(file.Name, stram),
                        // PublicId = "test",
                         //if user upload long photo we will focus on the face to make the image square
-                        Transformation = new Transformation().Gravity("face").Height(200).Width(200).Crop("thumb").Chain()
-                       .Radius("max").Chain()
+                       // Transformation = new Transformation().Gravity("face").Height(300).Width(300).Crop("thumb").Chain()
+                       //.Radius("max").Chain()
                        
                     };
                     UploadResolt=_Cloudinary.Upload(uploadParams);

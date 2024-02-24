@@ -29,9 +29,20 @@ namespace udemyCourse
                 .WithMany(u=>u.Likees)
                 .HasForeignKey(u=>u.LikerId)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<User>()
+                 .HasMany(m => m.MessageSent)
+                 .WithOne(u => u.Sender)
+                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<User>()
+                .HasMany(m=>m.MessageReceived)
+                .WithOne(u=>u.Recipient)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Like> Likes { get; set; }
+        public DbSet<Message> messages { get; set; }
     }
 }

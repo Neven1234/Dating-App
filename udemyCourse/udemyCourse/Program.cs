@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Text;
+using System.Text.Json.Serialization;
 using udemyCourse;
 using udemyCourse.Data;
 using udemyCourse.Helpers;
@@ -90,6 +91,12 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//avoid cyrcl
+builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+        });
 
 
 

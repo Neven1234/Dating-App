@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   //login
-  public LogIn(user:any){
+  public  LogIn(user:any){
     return this.http.post(this.baseURL+'/api/Auth/Login',user)
     .pipe(
       map((response:any)=>{

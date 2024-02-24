@@ -21,7 +21,8 @@ export class PhotoEditorComponent implements OnInit {
   test:any
   selectedImage=false
   currentMain: Photo | undefined
-
+  laoding:boolean=false
+  deleteingFlage:boolean=false
   constructor(private userService:UserService,private auth:AuthService,
     private alertfay:AlertifyService){}
   ngOnInit(): void {
@@ -39,9 +40,17 @@ export class PhotoEditorComponent implements OnInit {
       console.log('img ', this.imageUrl)
       console.log('esm el soraaa: '+ this.fileToUpload)
     }
+    loading(){
+      this.laoding=true
+    }
+    cancel(){
+      this.selectedImage=false
+    }
     onSubmit(Image: any){
+      this.laoding=true
       this.userService.UploadImage(this.fileToUpload,this.auth.decodedToken.userId).subscribe({
         next:(res)=>{
+
           console.log('id el sora ',res)
           this.selectedImage=false
           const photo:Photo={
@@ -50,9 +59,9 @@ export class PhotoEditorComponent implements OnInit {
             dateAdded:res.dateAdded,
             description:res.description,
             isMain:res.isMain
-
           }
           this.photos?.push(photo)
+          this.laoding=false
           if(photo.isMain){
              this.auth.changeMemberPhoto(photo.url)
           this.auth.currenUser.photoUrl=photo.url
@@ -65,7 +74,9 @@ export class PhotoEditorComponent implements OnInit {
         error:(error)=>{
           console.log(error)
         }
+        
       })
+     
      }
     slected(){
       this.selectedImage=true
@@ -94,9 +105,12 @@ export class PhotoEditorComponent implements OnInit {
 
     deletePhoto(id:number)
     {
+      
       this.alertfay.Confirm('Are you sure you want to delete this photo',()=>{
+        this.deleteingFlage=true
         this.userService.deletePhoto(this.auth.decodedToken.userId,id).subscribe({
           next:(result)=>{
+            this.deleteingFlage=false
             this.photos?.splice(this.photos.findIndex(p=>p.id===id),1)
             this.alertfay.success('Photo has been deleted successfully')
           },

@@ -14,5 +14,9 @@ namespace udemyCourse.Data
         Task <Photo> GetPhotoAsynk(int id);
         Task<Photo> GetMainPhoto(int userId);
         Task<Like> GetLike(int userId, int recipentId);
+        Task<Message> GetMessage(int id);
+        Task<PageList<Message>> GetMessagesForUser(MessageParams messageParams);
+        Task<IEnumerable<Message>> GetMessageTread(int userId, int recipientId);
+
     }
 }

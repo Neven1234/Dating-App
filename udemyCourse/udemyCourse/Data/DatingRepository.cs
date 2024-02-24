@@ -82,6 +82,46 @@ namespace udemyCourse.Data
             return await _dbContext.Photos.Where(u => u.UserId == userId).FirstOrDefaultAsync(p => p.IsMain);
         }
 
+        public async Task<Message> GetMessage(int id)
+        {
+            return await _dbContext.messages.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        public async Task<PageList<Message>> GetMessagesForUser(MessageParams messageParams)
+        {
+            var messages = _dbContext.messages
+                .Include(u => u.Sender).ThenInclude(p => p.Photos)
+                .Include(u => u.Recipient).ThenInclude(p => p.Photos)
+                .AsQueryable();
+            switch (messageParams.MessageContainer)
+            {
+                case "Inbox":
+                    messages = messages.Where(u => u.RecipientId == messageParams.UserId);
+                    break;
+                case "Outbox":
+                    messages=messages.Where(u=>u.SenderId==messageParams.UserId);
+                    break;
+                default:
+                    messages=messages.Where(u=>u.RecipientId==messageParams.UserId && u.IsRead==false);
+                    break;
+                        
+            }
+            messages = messages.OrderByDescending(d => d.MessageSent);
+            return await PageList<Message>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
+        }
+
+        public async Task<IEnumerable<Message>> GetMessageTread(int userId, int recipientId)
+        {
+            var messages = await _dbContext.messages
+               .Include(u => u.Sender).ThenInclude(p => p.Photos)
+               .Include(u => u.Recipient).ThenInclude(p => p.Photos)
+               .Where(m => m.RecipientId == userId && m.SenderId == recipientId
+               || m.RecipientId == recipientId && m.SenderId == userId)
+               .OrderByDescending(m => m.MessageSent)
+               .ToListAsync();
+            return messages;
+        }
+
         public async Task<Photo> GetPhotoAsynk(int id)
         {
             var photo = await _dbContext.Photos.FirstOrDefaultAsync(p => p.Id == id);
