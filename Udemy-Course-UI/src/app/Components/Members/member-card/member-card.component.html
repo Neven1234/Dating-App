@@ -6,7 +6,7 @@
             <li *ngIf="likesParam==''" class="list-inline-item"><button class="btn btn-primary" (click)="SendLike(user.id)"><i class="fa  fa-heart" ></i></button></li>
             <li *ngIf="likesParam=='likees'" class="list-inline-item"><button class="btn btn-primary" (click)="RemoveLike(user.id)" ><i class="fa  fa-heart" style="color: brown;" ></i></button></li>
             <li *ngIf="likesParam=='likers'" class="list-inline-item"><button class="btn btn-primary" (click)="SendLike(user.id)" ><i class="fa  fa-heart"  ></i></button></li>
-            <li class="list-inline-item"><button class="btn btn-primary"><i class="fa fa-envelope" ></i></button></li>
+            <li class="list-inline-item"><button class="btn btn-primary" [routerLink]="['/member',user.id]" [queryParams]="{tab: 3}" ><i class="fa fa-envelope" ></i></button></li>
         </ul>
     </div>
     <div *ngIf="disLike" class="lds-dual-ring"></div>

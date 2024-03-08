@@ -88,9 +88,53 @@ namespace udemyCourse.Controllers
            
             if(await _repository.SaveAll())
             {
-                return Ok("message sent");
+                var messageToReturn = _mapper.Map<MessageForCreartionDTO>(message);
+                return Ok(messageToReturn);
             }
             return BadRequest("Couldnt sent Message");
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletMessage(int id,int userId)
+        {
+            if (userId != int.Parse(User.FindFirstValue("userId")))
+            {
+                return Unauthorized();
+            }
+            var messageFromRepo = await _repository.GetMessage(id);
+            if(messageFromRepo.SenderId==userId)
+            {
+                messageFromRepo.SenderDeleted = true;
+
+            }
+            if(messageFromRepo.RecipientId==userId)
+            {
+                messageFromRepo.RecipientDeleted = true;
+                return Ok();
+            }
+            if(messageFromRepo.SenderDeleted == true)
+            {
+                _repository.Delete(messageFromRepo);
+                if(await _repository.SaveAll())
+                {
+                    return Ok();
+                }
+               
+
+            }
+            return BadRequest();
+
+        }
+        [HttpPost("{id}/Seen")]
+        public async Task<IActionResult>SeenMessage(int id,int userId)
+        {
+            var message = await _repository.GetMessage(id);
+            if (message.RecipientId != userId){
+                return Unauthorized();
+            }
+            message.IsRead=true;    
+            message.DateRead  = DateTime.Now;
+            await _repository.SaveAll();
+            return Ok();
         }
     }
 }

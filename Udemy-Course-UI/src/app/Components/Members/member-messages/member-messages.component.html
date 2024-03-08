@@ -1,0 +1,68 @@
+
+<div class="container">
+    
+    <div class="row clearfix"  >
+       <div class="col-lg-12">
+        
+           <div class="card chat-app" >
+            <div class="chat">
+                <div class="chat-history">
+                  
+                <div>
+                    <ul class="m-b-0">
+                        <li class="clearfix" *ngFor="let message of messages ; index as i">
+                          <!-- to them -->
+                          <div *ngIf="message.senderId==recipientId">
+                             <div class="message-data text-right">
+                                <img class="rounded-circle float-start" src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}">
+                                 <span class="message-data-time fa fa-clock-o float-start" >{{message.messageSent| timeago}}</span>
+                                
+                             </div> 
+                             <div class="float-end" style="margin-right: 620px;">
+                                <div class="message other-message float-start" style=" 
+                             margin-top: 20px;"> {{message.content}}  </div>
+                          </div>
+                            </div>
+                             
+                           
+                         <!-- to me -->
+                         <div *ngIf="message.senderId !=recipientId">
+                             <div class="message-data" >
+                                 <span class="message-data-time fa fa-clock-o float-end">{{message.messageSent| timeago}}</span>
+                             </div>
+                             <div class="float-end" style="margin-left: 620px;">
+                                <div class="message my-message float-end " style=" 
+                                margin-top: 20px;">{{message.content}} </div> 
+                             </div>
+                          
+                             <div *ngIf="i==messages.length-1">
+                                <span *ngIf="!message.isRead" class="seen text-danger "><i class="fa fa-check" style="color: black;"></i> </span>
+                                 <span *ngIf="message.isRead" class= " seen text-success ">
+                                     <svg class='fontawesomesvg ' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M374.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 178.7l-57.4-57.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l80 80c12.5 12.5 32.8 12.5 45.3 0l160-160zm96 128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 402.7 86.6 297.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l256-256z"/></svg>
+                                     {{message.dateRead| timeago}}
+                                 </span>
+                             </div> 
+                                 
+                         </div>  
+                        </li>
+                    </ul>
+                </div>
+                    
+               
+   
+       </div>
+       </div>
+       
+     </div>
+      
+        <div class="chat-message clearfix">
+            <div class="input-group mb-0">
+                <div class="input-group-prepend">
+                    <button class="btn btn-primary" (click)="sendMessage()"><span class="input-group-text"><i class="fa fa-send"></i></span></button>
+                </div>
+                <input  [(ngModel)]="newMessage.content" type="text" class="form-control" placeholder="Enter text here...">                                    
+            </div>
+        </div>
+       </div>
+    </div>
+</div>

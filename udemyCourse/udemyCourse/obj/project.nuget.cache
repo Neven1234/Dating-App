@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "RnC3Zft3n73OP2WYnDONhZr/0U3rP/qZxFQeq0CUo7UCoriZorHnYoZgdmgUu6yyxzUrvMn69ia1xtYOiJ71Lw==",
+  "dgSpecHash": "Lko13HgErDQyKn/Prv1VHFAORn+1dsKbS6f1kAU5DHwxFivyRtaU9s1YBM7/BsNDs9eU1/8i6Su41aE1pM/CXQ==",
   "success": true,
   "projectFilePath": "D:\\iti .net\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj",
   "expectedPackageFiles": [
@@ -51,6 +51,8 @@
     "C:\\Users\\JC.TECH\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\JC.TECH\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512",
+    "C:\\Users\\JC.TECH\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\7.0.11\\npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",

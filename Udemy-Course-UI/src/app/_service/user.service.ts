@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { User } from '../Models/UserDTO';
 import { Photo } from '../Models/photos';
 import { PaginatedResult } from '../Models/Pagination';
+import { Message } from '../Models/Message';
 
 // const HttpOptions={
 //   headers:new HttpHeaders({
@@ -93,5 +94,40 @@ export class UserService {
   removeLike(id:number,recipientId:number)
   {
     return this.http.delete(this.baseUrl+'/api/User/'+id+'/like/'+recipientId)
+  }
+
+  //Messages
+  getMessages(userId:number,page?:any,itemPerPage?:any,messsageContainer?:any){
+    const paginatedResult:PaginatedResult<Message[]>=new PaginatedResult<Message[]>();
+    let params=new HttpParams();
+    params=params.append('MessageContainer',messsageContainer)
+    if(page!=null && itemPerPage!=null){
+      params=params.append('pageNumber',page)
+      params=params.append('pageSize',itemPerPage)
+    } 
+    return this.http.get<Message[]>(this.baseUrl+'/api/users/'+userId+'/Messages',{observe:'response',params})
+    .pipe(
+      map(response=>{
+        paginatedResult.result=response.body
+        if(response.headers.get('Pagination')!=null){
+          paginatedResult.pagination=JSON.parse(response.headers.get('Pagination')!)
+        }
+        return paginatedResult;
+      })
+    )
+  }
+  getMessageThread(id:number,recipoientId:number){
+    return this.http.get<Message[]>(this.baseUrl+'/api/users/'+id+'/Messages/thread/'+recipoientId)
+  }
+  sendMessage(id:number,message:Message)
+  {
+    return this.http.post<Message>(this.baseUrl+'/api/users/'+id+'/Messages',message)
+  }
+  deleteMessage(id:number,userId:number){
+    return this.http.delete(this.baseUrl+'/api/users/'+userId+'/Messages/'+id)
+  }
+  markAsSeen(userId:number,id:number){
+     this.http.post(this.baseUrl+'/api/users/'+userId+'/Messages/'+id+'/Seen',{})
+     .subscribe();
   }
 }

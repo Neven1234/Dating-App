@@ -16,7 +16,9 @@ namespace udemyCourse
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.UseSerialColumns();
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             modelBuilder.Entity<Like>()
                 .HasKey(k => new { k.LikerId , k.LikeeId });
             modelBuilder.Entity<Like>()

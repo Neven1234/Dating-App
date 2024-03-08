@@ -53,7 +53,7 @@ builder.Services.AddSwaggerGen(C =>
 
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("connString"));
+    option.UseNpgsql(builder.Configuration.GetConnectionString("connString"));
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 

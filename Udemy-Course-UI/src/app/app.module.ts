@@ -27,6 +27,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsavedChanges.guard';
 import { PhotoEditorComponent } from './Components/Members/photo-editor/photo-editor.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { MemberMessagesComponent } from './Components/Members/member-messages/member-messages.component';
 
 
 export function TokenGetter(){
@@ -46,7 +47,8 @@ export function TokenGetter(){
     MemberCardComponent,
     MemberDetailComponent,
     MemberEditComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    MemberMessagesComponent
   ],
   imports: [
     BrowserModule,

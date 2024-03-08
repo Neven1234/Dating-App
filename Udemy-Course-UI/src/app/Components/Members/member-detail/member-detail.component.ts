@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../../../Models/UserDTO';
 import { UserService } from '../../../_service/user.service';
 import { AlertifyService } from '../../../_service/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../../_service/Auth.service';
+import { TabsetComponent } from 'ngx-bootstrap/tabs';
 
 
 @Component({
@@ -12,19 +13,8 @@ import { AuthService } from '../../../_service/Auth.service';
   styleUrl: './member-detail.component.css',
 })
 export class MemberDetailComponent implements OnInit {
-  user:User={
-    id: 0,
-    username: '',
-    knownAs: '',
-    age: 0,
-    gender: '',
-    created: new Date,
-    lastActive: new Date,
-    photoUrl: '',
-    city: '',
-    country: '',
-    lookingFor: ''
-  }
+  @ViewChild ('memberTabs',{static:true}) memberTabs:TabsetComponent
+  user:User
   imges:string[]=[
   ]
   previewImage=false
@@ -35,10 +25,14 @@ export class MemberDetailComponent implements OnInit {
   controles=true
   totalImageCount=0
 
-  constructor(private userService:UserService,private alertify:AlertifyService,private route:ActivatedRoute,private authservice:AuthService){}
+  constructor(private userService:UserService,private alertify:AlertifyService,
+    private route:ActivatedRoute,private authservice:AuthService){}
   ngOnInit(): void {
     this.LoadeUser()
-   
+    this.route.queryParams.subscribe(params=>{
+      const selectedTab=params['tab']
+      this.memberTabs.tabs[selectedTab>0?selectedTab:0].active=true
+    })
    
   }
   LoadeUser(){
@@ -100,5 +94,8 @@ export class MemberDetailComponent implements OnInit {
       this.currentIndex=0
     }
     this.currentLightboxImage=this.imges[this.currentIndex]
+  }
+  selectTab(tabId:number){
+    this.memberTabs.tabs[tabId].active=true;
   }
 }
