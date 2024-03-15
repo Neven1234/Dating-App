@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -50,6 +51,18 @@ builder.Services.AddSwaggerGen(C =>
     });
 });
 
+builder.Services.AddSignalR();
+
+builder.Services.AddCors(option =>
+{
+    option.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+        
+    });
+});
 
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
@@ -60,6 +73,8 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDatingRepository,DatingRepository>();
 
 builder.Services.AddScoped<LogUserActivity>();
+
+builder.Services.AddScoped<HubService>();
 
 //Clodinary settings
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
@@ -138,14 +153,21 @@ app.UseExceptionHandler(builder =>
     });
 });
 
-app.UseHttpsRedirection();
+app.UseRouting();
 
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+app.UseCors();
 
-app.MapControllers();
+
+app.UseHttpsRedirection();
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllers();
+    endpoints.MapHub<MessageHub>("/chat");
+});
+
+//app.MapControllers();
 
 app.Run();

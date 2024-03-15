@@ -32,6 +32,14 @@ namespace udemyCourse.Controllers
             var users= await _datingRepository.GetAllAsync(userParams);
             var userListToReturn = _mapper.Map<IEnumerable<UserForListDTO>>(users);
             Response.AddPagination(users.CurentPage, users.PageSize,users.TotalCount,users.TotalPages);
+            foreach (var user in userListToReturn)
+            {
+                var like = await _datingRepository.GetLike(userParams.UserId, user.Id);
+                if(like != null)
+                {
+                    user.ILiked = true;
+                }
+            }
             return Ok(userListToReturn);
         } 
         [HttpGet("{id:int}")]
@@ -99,5 +107,7 @@ namespace udemyCourse.Controllers
                 return Ok();
             return BadRequest("Failed like the user");
         }
+
+        
     }
 }

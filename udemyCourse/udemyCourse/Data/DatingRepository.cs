@@ -110,16 +110,17 @@ namespace udemyCourse.Data
             return await PageList<Message>.CreateAsync(messages, messageParams.PageNumber, messageParams.PageSize);
         }
 
-        public async Task<IEnumerable<Message>> GetMessageTread(int userId, int recipientId)
+        public async Task<PageList<Message>> GetMessageTread(UserParams userParams)
         {
-            var messages = await _dbContext.messages
+            var messages =  _dbContext.messages
                .Include(u => u.Sender).ThenInclude(p => p.Photos)
                .Include(u => u.Recipient).ThenInclude(p => p.Photos)
-               .Where(m => m.RecipientId == userId && m.RecipientDeleted == false
-               && m.SenderId == recipientId
-               || m.RecipientId == recipientId && m.SenderDeleted == false && m.SenderId == userId)
-               .ToListAsync();
-            return messages;
+               .Where(m => m.RecipientId == userParams.UserId && m.RecipientDeleted == false
+               && m.SenderId == userParams.User2Id
+               || m.RecipientId == userParams.User2Id && m.SenderDeleted == false && m.SenderId == userParams.UserId)
+               .OrderByDescending(m=> m.Id)
+               .AsQueryable();
+            return await PageList<Message>.CreateAsync(messages, userParams.PageNumber, userParams.PageSize); ;
         }
 
         public async Task<Photo> GetPhotoAsynk(int id)
@@ -152,5 +153,6 @@ namespace udemyCourse.Data
                     .Select(i => i.LikeeId);
             }
         }
+        
     }
 }

@@ -22,7 +22,8 @@ export class MemberCardComponent implements OnInit {
    photoUrl: '',
    city: '',
    country: '',
-   lookingFor: ''
+   lookingFor: '',
+   iLiked:false
  }
  disLike:boolean=false
  constructor(private authservice:AuthService,private userService:UserService,private alertify:AlertifyService){}
@@ -33,6 +34,11 @@ export class MemberCardComponent implements OnInit {
     this.userService.sendLike(this.authservice.decodedToken.userId,id).subscribe({
       next:(response)=>{
         this.alertify.success('you have liked '+ this.user.knownAs)
+        this.user.iLiked==true
+        setTimeout(() => {
+         
+          window.location.reload()
+        }, 2000);
       },
       error:(error)=>{
         this.alertify.error(error)

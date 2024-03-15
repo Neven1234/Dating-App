@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div  class="container mt-4">
     <div class="row">
         <h1>{{user.knownAs}} s'Profile</h1>
     </div>
@@ -77,7 +77,9 @@
                
            </tab>
            <tab heading="Messages">
-                <app-member-messages [recipientId]="user.id"></app-member-messages>
+                <div  class="container-Message" >
+                    <app-member-messages *ngIf="user.id" [recipientId]="user!.id" ></app-member-messages>
+                </div>
            </tab>
            </tabset> 
         </div>

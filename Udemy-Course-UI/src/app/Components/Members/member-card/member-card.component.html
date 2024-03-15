@@ -3,8 +3,9 @@
         <img class="card-img-top" src="{{user.photoUrl || '../../../../../../assets/user.png'}}" alt="user.knownAs">
         <ul class="list-inline member-icons animate text-center">
             <li class="list-inline-item"><button class="btn btn-primary" [routerLink]="['/member',user.id]"><i class="fa fa-user" ></i></button></li>
-            <li *ngIf="likesParam==''" class="list-inline-item"><button class="btn btn-primary" (click)="SendLike(user.id)"><i class="fa  fa-heart" ></i></button></li>
-            <li *ngIf="likesParam=='likees'" class="list-inline-item"><button class="btn btn-primary" (click)="RemoveLike(user.id)" ><i class="fa  fa-heart" style="color: brown;" ></i></button></li>
+            <li *ngIf=" likesParam=='' &&!user.iLiked" class="list-inline-item"><button class="btn btn-primary" (click)="SendLike(user.id)"><i class="fa  fa-heart" ></i></button></li>
+            
+            <li *ngIf="likesParam=='likees' || user.iLiked" class="list-inline-item"><button class="btn btn-primary" (click)="RemoveLike(user.id)" ><i class="fa  fa-heart" style="color: brown;" ></i></button></li>
             <li *ngIf="likesParam=='likers'" class="list-inline-item"><button class="btn btn-primary" (click)="SendLike(user.id)" ><i class="fa  fa-heart"  ></i></button></li>
             <li class="list-inline-item"><button class="btn btn-primary" [routerLink]="['/member',user.id]" [queryParams]="{tab: 3}" ><i class="fa fa-envelope" ></i></button></li>
         </ul>

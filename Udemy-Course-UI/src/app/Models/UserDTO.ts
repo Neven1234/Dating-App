@@ -17,5 +17,6 @@ export interface User{
     lookingFor?:string;
     photos?:Photo[];
     dateOfBirth?:Date
+    iLiked?:boolean
 
 }

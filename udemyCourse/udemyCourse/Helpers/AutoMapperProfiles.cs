@@ -13,21 +13,32 @@ namespace udemyCourse.Helpers
                      src.Photos.FirstOrDefault(p => p.IsMain).Url))
                 .ForMember(des => des.Age, opt => opt.MapFrom(src =>
                     src.DateOfBirth.CalculateAge()));
+
             CreateMap<User, UserForListDTO>()
                 .ForMember(des => des.PhotoUrl, opt => opt.MapFrom(src =>
                      src.Photos.FirstOrDefault(p => p.IsMain).Url))
                 .ForMember(des => des.Age, opt => opt.MapFrom(src =>
                     src.DateOfBirth.CalculateAge()));
+
+
             CreateMap<UserForUpdateDTO, User>();
+
             CreateMap<Photo, PhotoForReturnDTO>();
+
             CreateMap<PhotoForCreationDTO, Photo>();
+
             CreateMap<UserForRegisterDTO, User>();
+
             CreateMap<MessageForCreartionDTO, Message>().ReverseMap();
+
             CreateMap<Message, MessageToReturnDTO>()
+                .ForMember(m => m.SenderPhotoUrl, opt => opt
+                .MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.IsMain).Url))
                 .ForMember(m => m.RecipienPhotoUrl, opt => opt
-                .MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.IsMain).Url))
-            .ForMember(m => m.SenderPhotoUrl, opt => opt
-                .MapFrom(u => u.Sender.Photos.FirstOrDefault(p => p.IsMain).Url));
+                .MapFrom(u => u.Recipient.Photos.FirstOrDefault(p => p.IsMain).Url));
+
+
+            
         }
     }
 }

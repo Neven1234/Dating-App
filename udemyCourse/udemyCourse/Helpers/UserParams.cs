@@ -2,17 +2,18 @@
 {
     public class UserParams
     {
-        private const int MaxPageSize = 50;
+        private const int MaxPageSize = 500;
         public int PageNumber { get; set; } = 1;
-        private int pageSize=10;
-        public int PageSize 
+        private int pageSize = 10;
+        public int PageSize
         {
-            get { return pageSize ; }
-            set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; } 
+            get { return pageSize; }
+            set { pageSize = (value > MaxPageSize) ? MaxPageSize : value; }
         }
 
         //user filter
         public int UserId { get; set; }
+        public int? User2Id {get;set;}
         public string? Gender { get; set; }
         public int MinAge { get; set; } = 18;
         public int MaxAge { get; set; } = 90;

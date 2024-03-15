@@ -12,6 +12,9 @@
     background-color: #fff;
     border-top: none;
 }
+/* .container-Message{
+    flex: 0 0 20%;
+} */
 :host{
     display: block;
     text-align: center;

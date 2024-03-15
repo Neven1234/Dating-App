@@ -14,7 +14,19 @@ import { TabsetComponent } from 'ngx-bootstrap/tabs';
 })
 export class MemberDetailComponent implements OnInit {
   @ViewChild ('memberTabs',{static:true}) memberTabs:TabsetComponent
-  user:User
+  user:User={
+    id: 0,
+    username: '',
+    knownAs: '',
+    age: 0,
+    gender: '',
+    created: new Date(),
+    lastActive: new Date(),
+    photoUrl: '',
+    city: '',
+    country: '',
+    lookingFor: ''
+  }
   imges:string[]=[
   ]
   previewImage=false
@@ -52,7 +64,7 @@ export class MemberDetailComponent implements OnInit {
   SendLike(){
     this.userService.sendLike(this.authservice.decodedToken.userId,+this.route.snapshot.params['id']).subscribe({
       next:(response)=>{
-        this.alertify.success('you have liked '+ this.user.knownAs)
+        this.alertify.success('you have liked '+ this.user?.knownAs)
       },
       error:(error)=>{
         this.alertify.error(error)
@@ -62,7 +74,7 @@ export class MemberDetailComponent implements OnInit {
 
   getImages(){
     
-    this.user.photos?.forEach(photo=>{
+    this.user?.photos?.forEach(photo=>{
       this.imges.push(photo.url)
     })
     this.totalImageCount=this.imges.length

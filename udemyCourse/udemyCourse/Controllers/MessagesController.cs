@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
 using udemyCourse.Data;
 using udemyCourse.Dtos;
@@ -18,11 +19,15 @@ namespace udemyCourse.Controllers
     {
         private readonly IDatingRepository _repository;
         private readonly IMapper _mapper;
+        private readonly HubService _hubService;
+      
 
-        public MessagesController(IDatingRepository repository,IMapper mapper)
+        public MessagesController(IDatingRepository repository,IMapper mapper,HubService hubService)
         {
             _repository = repository;
             _mapper = mapper;
+           _hubService = hubService;
+            
         }
 
         [HttpGet("{id}",Name ="GetMessages")]
@@ -57,16 +62,16 @@ namespace udemyCourse.Controllers
             return Ok(messages);
         }
 
-        [HttpGet("thread/{recipientId}")]
-        public async Task<IActionResult> GetMessageThread(int userId,int recipientId)
+        [HttpGet("thread/")]
+        public async Task<IActionResult> GetMessageThread([FromQuery] UserParams userParams)
         {
-            if (userId != int.Parse(User.FindFirstValue("userId")))
+            if (userParams.UserId!= int.Parse(User.FindFirstValue("userId")))
             {
                 return Unauthorized();
             }
-            var messagesFromRepo=await _repository.GetMessageTread(userId, recipientId);
+            var messagesFromRepo=await _repository.GetMessageTread(userParams);
             var messagesThread = _mapper.Map<IEnumerable<MessageToReturnDTO>>(messagesFromRepo);
-            return Ok(messagesThread);
+            return Ok(messagesThread.OrderBy(m=>m.Id));
         }
 
         [HttpPost]
@@ -85,10 +90,12 @@ namespace udemyCourse.Controllers
             }
             var message = _mapper.Map<Message>(messageForCreartionDTO);
             _repository.Add(message);
-           
-            if(await _repository.SaveAll())
+            var messageToReturn = _mapper.Map<MessageToReturnDTO>(message);
+            var mainPhoto = await _repository.GetMainPhoto(userId);
+            messageToReturn.SenderPhotoUrl = mainPhoto.Url;
+            if (await _repository.SaveAll())
             {
-                var messageToReturn = _mapper.Map<MessageForCreartionDTO>(message);
+                await _hubService.SendMessageToGroup(messageToReturn.SenderId.ToString(),messageToReturn.RecipientId.ToString(), messageToReturn);
                 return Ok(messageToReturn);
             }
             return BadRequest("Couldnt sent Message");
@@ -128,9 +135,9 @@ namespace udemyCourse.Controllers
         public async Task<IActionResult>SeenMessage(int id,int userId)
         {
             var message = await _repository.GetMessage(id);
-            if (message.RecipientId != userId){
-                return Unauthorized();
-            }
+            //if (message.RecipientId != userId){
+            //    return Unauthorized();
+            //}
             message.IsRead=true;    
             message.DateRead  = DateTime.Now;
             await _repository.SaveAll();

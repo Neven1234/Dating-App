@@ -3,6 +3,7 @@ import { Auth } from '../../Models/User';
 import { AuthService } from '../../_service/Auth.service';
 import { AlertifyService } from '../../_service/alertify.service';
 import { Router } from '@angular/router';
+import { SignalRService } from '../../_service/signal-r.service';
 
 @Component({
   selector: 'app-nav',
@@ -16,7 +17,8 @@ export class NavComponent implements OnInit {
   }
   photoUrl:string=''
   laoding:boolean=false
-  constructor(public auth:AuthService,private Alertify:AlertifyService,private router:Router){}
+  constructor(public auth:AuthService,private Alertify:AlertifyService
+    ,private router:Router, private signalRSerivce:SignalRService){}
   ngOnInit(): void {
     this.auth.currentPhotoUrl.subscribe(photoUrl=>this.photoUrl=photoUrl)
   }

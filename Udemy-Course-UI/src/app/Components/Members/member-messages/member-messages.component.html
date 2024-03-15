@@ -1,24 +1,32 @@
 
-<div class="container">
+<div class="container" >
     
     <div class="row clearfix"  >
        <div class="col-lg-12">
-        
-           <div class="card chat-app" >
-            <div class="chat">
-                <div class="chat-history">
+        <div *ngIf="messages?.length==0"> 
+            <p>say hi  </p>
+        </div>
+           <div class="card chat-app" *ngIf="messages?.length!=0" >
+            <div class="chat"  >
+                <div class="chat-history" 
+                #messageContainer
+                infiniteScroll (scrolledUp)="onScrollUp()" (scrolled)="onScrollDown()" [scrollWindow]="false" [infiniteScrollDistance]="0"  [infiniteScrollUpDistance]="0"
+                  >
                   
                 <div>
                     <ul class="m-b-0">
+                        <div *ngIf="Loading">
+                            <h2>Loading..</h2>
+                        </div>
                         <li class="clearfix" *ngFor="let message of messages ; index as i">
                           <!-- to them -->
                           <div *ngIf="message.senderId==recipientId">
-                             <div class="message-data text-right">
+                             <div class="message-data ">
                                 <img class="rounded-circle float-start" src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}">
                                  <span class="message-data-time fa fa-clock-o float-start" >{{message.messageSent| timeago}}</span>
                                 
                              </div> 
-                             <div class="float-end" style="margin-right: 620px;">
+                             <div class="float-start" style="margin-right: 620px;">
                                 <div class="message other-message float-start" style=" 
                              margin-top: 20px;"> {{message.content}}  </div>
                           </div>
@@ -46,10 +54,7 @@
                          </div>  
                         </li>
                     </ul>
-                </div>
-                    
-               
-   
+                </div>  
        </div>
        </div>
        

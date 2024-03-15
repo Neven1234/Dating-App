@@ -116,8 +116,27 @@ export class UserService {
       })
     )
   }
-  getMessageThread(id:number,recipoientId:number){
-    return this.http.get<Message[]>(this.baseUrl+'/api/users/'+id+'/Messages/thread/'+recipoientId)
+ 
+  getMessageThread(id:number,recipoientId:number,page?:any,itemPerPage?:any){
+    
+    const paginatedResult:PaginatedResult<Message[]>=new PaginatedResult<Message[]>()
+    let params=new HttpParams()
+    params=params.append('UserId',id)
+    params=params.append('User2Id',recipoientId)
+    params=params.append('pageSize',itemPerPage)
+    params=params.append('pageNumber',page)
+    
+   
+    return this.http.get<Message[]>(this.baseUrl+'/api/users/'+id+'/Messages/thread/',{observe:'response',params})
+    .pipe(
+      map(response=>{
+        paginatedResult.result=response.body
+        if(response.headers.get('Pagination')!=null){
+          paginatedResult.pagination=JSON.parse(response.headers.get('Pagination')!)
+        }
+        return paginatedResult
+      })
+    )
   }
   sendMessage(id:number,message:Message)
   {

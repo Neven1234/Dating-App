@@ -16,7 +16,7 @@ namespace udemyCourse.Data
         Task<Like> GetLike(int userId, int recipentId);
         Task<Message> GetMessage(int id);
         Task<PageList<Message>> GetMessagesForUser(MessageParams messageParams);
-        Task<IEnumerable<Message>> GetMessageTread(int userId, int recipientId);
+        Task<PageList<Message>> GetMessageTread(UserParams userParams);
 
     }
 }

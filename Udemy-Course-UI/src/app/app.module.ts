@@ -28,7 +28,7 @@ import { PhotoEditorComponent } from './Components/Members/photo-editor/photo-ed
 import { JwtModule } from '@auth0/angular-jwt';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { MemberMessagesComponent } from './Components/Members/member-messages/member-messages.component';
-
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
 export function TokenGetter(){
   return localStorage.getItem('token')
@@ -71,6 +71,7 @@ export function TokenGetter(){
     TimeagoModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
+    InfiniteScrollModule
 
   ],
   providers: [

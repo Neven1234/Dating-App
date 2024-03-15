@@ -119,6 +119,7 @@ D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.Configu
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.Drawing.Common.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.Memory.Data.dll
+D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.Net.WebSockets.WebSocketProtocol.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.Runtime.Caching.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.Security.Permissions.dll
