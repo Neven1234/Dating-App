@@ -101,10 +101,10 @@ export class UserService {
     const paginatedResult:PaginatedResult<Message[]>=new PaginatedResult<Message[]>();
     let params=new HttpParams();
     params=params.append('MessageContainer',messsageContainer)
-    if(page!=null && itemPerPage!=null){
+    
       params=params.append('pageNumber',page)
       params=params.append('pageSize',itemPerPage)
-    } 
+    
     return this.http.get<Message[]>(this.baseUrl+'/api/users/'+userId+'/Messages',{observe:'response',params})
     .pipe(
       map(response=>{

@@ -29,6 +29,8 @@ namespace udemyCourse.Helpers
 
             CreateMap<UserForRegisterDTO, User>();
 
+            CreateMap<RegisterWithGoogle,User>();
+
             CreateMap<MessageForCreartionDTO, Message>().ReverseMap();
 
             CreateMap<Message, MessageToReturnDTO>()

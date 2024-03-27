@@ -19,13 +19,12 @@ namespace udemyCourse.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserRepository _repository;
-        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
-        public AuthController(IUserRepository repository,IConfiguration configuration, IMapper mapper)
+        public AuthController(IUserRepository repository, IMapper mapper)
         {
             _repository = repository;
-            _configuration = configuration;
+            
             _mapper = mapper;
         }
         [HttpPost("register")]
@@ -43,48 +42,38 @@ namespace udemyCourse.Controllers
             return Ok(userToReturn);
         }
 
+        //log in with google
+        [HttpPost("googleLogin")]
+        public async Task<IActionResult> LoginWithGoogle(LoginWithGoogleDTO googleDTO)
+        {
+            var result=await _repository.LoginWithGoogle(googleDTO);
+
+            return Ok(result);
+        }
+
+        //registWithGoogle
+        [HttpPost("googleRegister")]
+        public async Task<IActionResult> RegisterByGoogle(RegisterWithGoogle registerWithGoogle)
+        {
+            var userToCreate = _mapper.Map<User>(registerWithGoogle);
+            var CreatedUserAndToken=await _repository.RegisterByGoogle(userToCreate);
+            return Ok(CreatedUserAndToken);
+        }
+
         //log in
         [HttpPost("Login")]
         public async Task<IActionResult> LogIn(UserForLoginDTO userForLoginDTO)
         {
     
             var user=await _repository.Login(userForLoginDTO.Username, userForLoginDTO.Password);
-            var userToReturn = _mapper.Map<UserForDetailsDTO>(user);
             if (user==null)
             {
                 return Unauthorized();
             }
-            var authClaims = new List<Claim>
-            {
-                new Claim("name",user.Username),
-                new Claim("userId",user.Id.ToString()),
 
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
-            };
-            var jwtToken = getToken(authClaims);
-            var token = new JwtSecurityTokenHandler().WriteToken(jwtToken);
-            var expiration = DateTime.Now.AddDays(3);
-            return Ok(new
-            {
-                token = token,
-                user= userToReturn
-            });
+            return Ok(user);
 
         }
-        //helper functions
-
-        private JwtSecurityToken getToken(List<Claim> authClims)
-        {
-            var authSigninKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._configuration["JWT:Secret"]));
-            var token = new JwtSecurityToken(
-                issuer: this._configuration["JWT:ValidIssuer"],
-                audience: this._configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
-                claims: authClims,
-                signingCredentials: new SigningCredentials(authSigninKey, SecurityAlgorithms.HmacSha256)
-                );
-            return token;
-
-        }
+      
     }
 }

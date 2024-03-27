@@ -18,18 +18,24 @@ export class MessagesComponent implements OnInit {
     ,private alertify:AlertifyService,private router:Router){}
   f:string=''
   pageNumber=1
-  pageSize:5
+  pageSize:15
   OutboxCheck=false;
   messages:Message[]
-  pagination:Pagination
+  pagination:Pagination={
+    currentPage: 1,
+    itemPerPage: 0,
+    totalItems: 0,
+    totalPages: 0
+  }
   messageContainer='Unread'
     ngOnInit(): void {
+    
       this.loadMessages()
 
   }
   loadMessages(){
     
-    this.userService.getMessages(this.auth.decodedToken.userId,this.pageNumber,this.pageSize,this.messageContainer).subscribe({
+    this.userService.getMessages(this.auth.decodedToken.userId ,this.pagination.currentPage,15,this.messageContainer).subscribe({
       next:(result)=>{
         this.messages=result.result
         this.pagination=result.pagination
@@ -41,7 +47,7 @@ export class MessagesComponent implements OnInit {
   }
   pageChanged(event: PageChangedEvent): void {
     this.pagination.currentPage= event.page;
-   
+    console.log(event.page)
     this.loadMessages()
    }
    outbox(){

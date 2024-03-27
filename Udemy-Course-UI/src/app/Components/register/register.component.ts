@@ -7,6 +7,10 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { User } from '../../Models/UserDTO';
 import { Router } from '@angular/router';
 import { UserToRegister } from '../../Models/UserToRegistDtO';
+import { CredentialResponse,PromptMomentNotification } from 'google-one-tap'
+import { GoogleSigninButtonModule, SocialAuthService } from '@abacritt/angularx-social-login';
+import { newUserFromGoogle } from '../../Models/newRegisterFormGoogle';
+
 
 @Component({
   selector: 'app-register',
@@ -16,11 +20,13 @@ import { UserToRegister } from '../../Models/UserToRegistDtO';
 export class RegisterComponent implements OnInit  {
   constructor(private service:AuthService,
     private Alertify:AlertifyService,private fb:FormBuilder,
-    private router:Router){}
+    private router:Router,private socialAuthServices:SocialAuthService){}
  @Output() cancelRegister=new EventEmitter()
-
+ @Input()newUserData: newUserFromGoogle
+ @Input ()isGoogleUser:Boolean
   registerForm!: FormGroup;
   bsConfig!:Partial<BsDatepickerConfig>
+  registerFromGoogle:Boolean=false;
   user:UserToRegister={
     username: '',
     password: '',
@@ -31,12 +37,22 @@ export class RegisterComponent implements OnInit  {
     country: ''
   }
   ngOnInit(): void {
-    this.bsConfig={
-      containerClass:'theme-red',
-
-    }
+    console.log(this.isGoogleUser)
+   if(this.newUserData!=undefined){
+    console.log('googleuser ',this.newUserData.username)
+    this.user.username=this.newUserData.username
+    this.user.knownAs=this.newUserData.knownAs
+    this.registerFromGoogle=true
+    this.createREgisterForm2()
+   }
+   else
+   {
     this.createREgisterForm()
-  }
+   }
+}
+
+
+
   //register forem
   createREgisterForm(){
     this.registerForm= this.fb.group({
@@ -49,6 +65,18 @@ export class RegisterComponent implements OnInit  {
       password:['', [Validators.required,Validators.maxLength(10),Validators.minLength(8)]],
       confirmPassword:['',Validators.required]
     },{validator:this.passwordMatchValidator})
+  }
+  //register forem
+  createREgisterForm2(){
+    this.registerForm= this.fb.group({
+      gender:['male'],
+      username:['',Validators.required],
+      knownAs:['',Validators.required],
+      dateOfBirth:[null,Validators.required],
+      city:['',Validators.required],
+      country:['',Validators.required],
+      
+    })
   }
   //custom validation
   passwordMatchValidator(g:AbstractControl){
@@ -87,4 +115,25 @@ export class RegisterComponent implements OnInit  {
     this.cancelRegister.emit(false)
     console.log('cancel')
   }
+  // google
+registerByGoogle(){
+  if(this.registerForm.valid){
+
+  
+      this.newUserData.city=this.registerForm.get('city')?.value
+      this.newUserData.country=this.registerForm.get('country')?.value
+      this.newUserData.dateOfBirth=this.registerForm.get('dateOfBirth')?.value
+      this.newUserData.gender=this.registerForm.get('gender')?.value
+      this.service.RegisterWithGoogle(this.newUserData).subscribe({
+        next:(response)=>{
+         console.log(response)
+         this.router.navigate(['/members'])
+        },
+        error:(error)=>{
+          console.log(error)
+        }
+  })
+}
+}
+
 }

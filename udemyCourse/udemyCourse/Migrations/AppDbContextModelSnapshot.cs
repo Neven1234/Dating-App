@@ -156,11 +156,9 @@ namespace udemyCourse.Migrations
                         .HasColumnType("text");
 
                     b.Property<byte[]>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<byte[]>("PasswordSalt")
-                        .IsRequired()
                         .HasColumnType("bytea");
 
                     b.Property<string>("Username")

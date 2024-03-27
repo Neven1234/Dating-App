@@ -4,6 +4,7 @@ import { AuthService } from '../../_service/Auth.service';
 import { AlertifyService } from '../../_service/alertify.service';
 import { Router } from '@angular/router';
 import { SignalRService } from '../../_service/signal-r.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-nav',
@@ -18,8 +19,9 @@ export class NavComponent implements OnInit {
   photoUrl:string=''
   laoding:boolean=false
   constructor(public auth:AuthService,private Alertify:AlertifyService
-    ,private router:Router, private signalRSerivce:SignalRService){}
+    ,private router:Router, private signalRSerivce:SignalRService,private socialAuthServices:SocialAuthService){}
   ngOnInit(): void {
+     
     this.auth.currentPhotoUrl.subscribe(photoUrl=>this.photoUrl=photoUrl)
   }
   LogIn()
@@ -39,9 +41,11 @@ export class NavComponent implements OnInit {
   LoggedIn(){
     return this.auth.LoggedIn();
   }
-  LogOut(){
-    localStorage.removeItem('token')
+  async LogOut(){
+    // localStorage.removeItem('token')
+    await localStorage.clear()
+    this.router.navigate(['/home'])
    this.Alertify.message('loged out')
-   this.router.navigate(['/home'])
+  
   }
 }

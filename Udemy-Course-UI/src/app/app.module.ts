@@ -30,6 +30,11 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { MemberMessagesComponent } from './Components/Members/member-messages/member-messages.component';
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 
+import { SocialLoginModule,SocialAuthServiceConfig, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login'
+
+
+
 export function TokenGetter(){
   return localStorage.getItem('token')
 }
@@ -71,7 +76,8 @@ export function TokenGetter(){
     TimeagoModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    GoogleSigninButtonModule
 
   ],
   providers: [
@@ -81,7 +87,28 @@ export function TokenGetter(){
         useClass: ErrorInspecter,
         multi: true
     },
-    PreventUnsavedChanges
+    PreventUnsavedChanges,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '41236342619-pah3dkvkj2gq3ligp8gbjv9ido6jftvc.apps.googleusercontent.com',{
+                oneTapEnabled:false,
+                prompt:'consent',
+              }
+              
+            )
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })
