@@ -21,11 +21,13 @@
                         <li class="clearfix" *ngFor="let message of messages ; index as i">
                           <!-- to them -->
                           <div *ngIf="message.senderId==recipientId">
-                             <div class="message-data ">
-                                <img class="rounded-circle float-start" src="{{message.senderPhotoUrl}}" alt="{{message.senderKnownAs}}">
+                             <div class="message-data " >
+                                <img class="rounded-circle float-start" src="{{message.senderPhotoUrl || photo}}" alt="{{message.senderKnownAs}}">
                                  <span class="message-data-time fa fa-clock-o float-start" >{{message.messageSent| timeago}}</span>
                                 
                              </div> 
+                           
+                             
                              <div class="float-start" style="margin-right: 620px;">
                                 <div class="message other-message float-start" style=" 
                              margin-top: 20px;"> {{message.content}}  </div>

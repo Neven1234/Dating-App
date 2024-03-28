@@ -18,6 +18,7 @@ export class NavComponent implements OnInit {
   }
   photoUrl:string=''
   laoding:boolean=false
+  laoding2:boolean=false
   constructor(public auth:AuthService,private Alertify:AlertifyService
     ,private router:Router, private signalRSerivce:SignalRService,private socialAuthServices:SocialAuthService){}
   ngOnInit(): void {
@@ -41,11 +42,18 @@ export class NavComponent implements OnInit {
   LoggedIn(){
     return this.auth.LoggedIn();
   }
-  async LogOut(){
+   LogOut(){
     // localStorage.removeItem('token')
-    await localStorage.clear()
-    this.router.navigate(['/home'])
-   this.Alertify.message('loged out')
+    this.laoding2=true
+    localStorage.clear()
+    setTimeout(() => {
+      this.laoding2=false
+      this.router.navigate(['/home'])
+      this.Alertify.message('loged out')
+    }, 1500);      
+    
+   
+   
   
   }
 }

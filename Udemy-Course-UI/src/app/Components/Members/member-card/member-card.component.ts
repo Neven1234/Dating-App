@@ -10,7 +10,7 @@ import { AlertifyService } from '../../../_service/alertify.service';
   styleUrl: './member-card.component.css'
 })
 export class MemberCardComponent implements OnInit {
-  @Input()likesParam:string=''
+ @Input()likesParam:string=''
  @Input() user:User={
    id: 0,
    username: '',
@@ -25,6 +25,7 @@ export class MemberCardComponent implements OnInit {
    lookingFor: '',
    iLiked:false
  }
+ like:boolean=false
  disLike:boolean=false
  constructor(private authservice:AuthService,private userService:UserService,private alertify:AlertifyService){}
   ngOnInit(): void {
@@ -34,11 +35,11 @@ export class MemberCardComponent implements OnInit {
     this.userService.sendLike(this.authservice.decodedToken.userId,id).subscribe({
       next:(response)=>{
         this.alertify.success('you have liked '+ this.user.knownAs)
+        this.like=true
         this.user.iLiked==true
-        setTimeout(() => {
-         
-          window.location.reload()
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload()
+        // }, 10);
       },
       error:(error)=>{
         this.alertify.error(error)

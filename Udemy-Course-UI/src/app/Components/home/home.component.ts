@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   }
   registerMode:boolean=false
   newUser:boolean=false
+  laoding:boolean=false
   newUSER:newUserFromGoogle={
     username: '',
     knownAs: '',
@@ -58,12 +59,13 @@ export class HomeComponent implements OnInit {
             console.log(this.newUSER.username,'and : ',this.newUSER.knownAs)
           }
           else{
-            var token=localStorage.getItem('token')
-            if(token!=undefined)
-            {
-              this.router.navigate(['/members'])
-            }
-             
+            this.laoding=true
+            this.router.navigate(['/members'])
+            setTimeout(()=>{
+              this.laoding=false
+              window.location.reload()
+            },10)
+            
           }
         }
       })

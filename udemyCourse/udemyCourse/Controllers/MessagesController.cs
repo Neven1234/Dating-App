@@ -92,7 +92,15 @@ namespace udemyCourse.Controllers
             _repository.Add(message);
             var messageToReturn = _mapper.Map<MessageToReturnDTO>(message);
             var mainPhoto = await _repository.GetMainPhoto(userId);
-            messageToReturn.SenderPhotoUrl = mainPhoto.Url;
+            if(mainPhoto==null)
+            {
+                messageToReturn.SenderPhotoUrl = "";
+            }
+            else
+            {
+
+                messageToReturn.SenderPhotoUrl = mainPhoto.Url;
+            }
             if (await _repository.SaveAll())
             {
                 await _hubService.SendMessageToGroup(messageToReturn.SenderId.ToString(),messageToReturn.RecipientId.ToString(), messageToReturn);

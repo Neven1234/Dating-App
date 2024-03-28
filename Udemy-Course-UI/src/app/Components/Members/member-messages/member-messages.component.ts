@@ -18,8 +18,11 @@ export class MemberMessagesComponent implements OnInit {
   @ViewChild('messageContainer') messCont:ElementRef
   scrolledUp=false
 
+  photo:string='http://res.cloudinary.com/ddonqb5ur/image/upload/v1709760114/aea4scnbaiujsfmv2jz7.png'
+
   messages:Message[]
   Loading:boolean=false
+  noMainPhoto:boolean=false
   pageNumber=1
   pageSize=20;
   pagination:Pagination={
@@ -64,11 +67,15 @@ export class MemberMessagesComponent implements OnInit {
     this.userService.getMessageThread(this.auth.decodedToken.userId,this.recipientId,this.pagination.currentPage,this.pageSize)
     .pipe(
       tap (messages=>{
-       
         for(let i=0;i< messages.result.length;i++){
+          if(messages.result[i].senderId!=this.currentUserId && !this.noMainPhoto &&messages.result[i].senderPhotoUrl==null )
+          {
+            this.noMainPhoto=true
+          }
           if( messages.result[i].isRead===false &&  messages.result[i].recipientId===this.currentUserId)
           this.userService.markAsSeen(this.currentUserId, messages.result[i].id)
         }
+       
       })
     )
     .subscribe({
