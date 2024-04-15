@@ -1,0 +1,12 @@
+node_modules
+.gitignore
+README.md
+npm-debug.log
+.env
+.vscode
+.git
+LICENSE
+.aws
+.editorconfig
+dist
+dist/**

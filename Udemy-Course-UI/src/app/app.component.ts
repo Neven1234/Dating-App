@@ -10,7 +10,7 @@ import { User } from './Models/UserDTO';
 export class AppComponent implements OnInit {
 
   constructor(private auth:AuthService){}
-  title = 'Unity-Course-UI';
+  title = 'udemy-Course-UI';
   jwtHelper= new JwtHelperService();
   user:User={
     id: 0,

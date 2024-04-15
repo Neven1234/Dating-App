@@ -1,0 +1,71 @@
+name: dockercompose4062597254900622985
+services:
+  app_db:
+    container_name: app_db
+    environment:
+      POSTGRES_DB: DatingAppdb
+      POSTGRES_PASSWORD: NevenPg
+      POSTGRES_USER: postgres
+    image: postgres:latest
+    networks:
+      dev: null
+    ports:
+      - mode: ingress
+        target: 5433
+        published: "5432"
+        protocol: tcp
+    restart: always
+    volumes:
+      - type: volume
+        source: app_data
+        target: /var/lib/postgresql/data
+        volume: {}
+  udemycourse:
+    build:
+      context: D:\iti .net\Udemy-Course\udemyCourse
+      dockerfile: udemyCourse/Dockerfile
+    container_name: demoapp-services
+    depends_on:
+      app_db:
+        condition: service_started
+        required: true
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+      ASPNETCORE_URLS: http://+:80
+      ConnectionStrings__connString: User Id=postgres; Password=NevenPg;Server=app_dp;Port=5432;Database=DatingAppdb; IntegratedSecurity=true;Pooling=true;
+    image: docker.io/library/demoapp
+    networks:
+      dev: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8088"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\JC.TECH\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\JC.TECH\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  dev:
+    name: dockercompose4062597254900622985_dev
+    driver: bridge
+volumes:
+  app_data:
+    name: dockercompose4062597254900622985_app_data

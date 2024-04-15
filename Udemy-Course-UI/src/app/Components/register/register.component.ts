@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit  {
  @Input()newUserData: newUserFromGoogle
  @Input ()isGoogleUser:Boolean
   registerForm!: FormGroup;
+  maxDate=new Date()
   bsConfig!:Partial<BsDatepickerConfig>
   registerFromGoogle:Boolean=false;
   user:UserToRegister={
@@ -37,6 +38,10 @@ export class RegisterComponent implements OnInit  {
     country: ''
   }
   ngOnInit(): void {
+    this.maxDate.setFullYear(new Date().getFullYear()-18,1,1)
+   this.bsConfig=Object.assign({},{
+    maxDate:this.maxDate
+   })
     console.log(this.isGoogleUser)
    if(this.newUserData!=undefined){
     console.log('googleuser ',this.newUserData.username)
@@ -82,6 +87,10 @@ export class RegisterComponent implements OnInit  {
   passwordMatchValidator(g:AbstractControl){
     return g.get('password')?.value===g.get('confirmPassword')?.value ? null:{'mismatch':true}
   }
+  dateOfBirthValidator(date:AbstractControl){
+    return date
+  }
+
   regiser(){
     if(this.registerForm.valid)
     {

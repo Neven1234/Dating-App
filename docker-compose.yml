@@ -1,0 +1,50 @@
+version: '3.4'
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+  app_db:
+    image: postgres:latest
+    container_name: app_db
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=NevenPg
+        - POSTGRES_DB=DatingAppdb
+    ports:
+       - "5433:5432"
+    restart: always
+    volumes:
+        - app_data:/var/lib/postgresql/data
+    networks:
+        - dev
+  udemycourse:
+    image:  datingapp-backend
+    depends_on:
+        - "app_db"
+    container_name: "demoapp-services"
+    ports:
+        - "8088:80"
+    build:
+      context: ./udemyCourse/udemyCourse
+    environment:
+        - ConnectionStrings__connString=User Id=postgres; Password=NevenPg;Server=app_db;Port=5432;Database=DatingAppdb;
+        - ASPNETCORE_URLS=http://+:80
+    networks:
+    - dev
+
+  udemy-course-ui:
+    container_name: datingappfront
+    image: datingappfront:v1
+    ports:
+      - 80:80
+    build:
+      context: ./udemy-course-ui
+    expose:
+      - 80
+    networks:
+      - dev
+  
+volumes:
+    app_data:  

@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Unity-Course-UI'`, () => {
+  it(`should have as title 'udemy-Course-UI'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Unity-Course-UI');
+    expect(app.title).toEqual('udemy-Course-UI');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Unity-Course-UI');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, udemy-Course-UI');
   });
 });
