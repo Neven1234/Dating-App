@@ -116,6 +116,7 @@ onScrollUp(){
   
 }
   sendMessage(){
+    this.scrollToBottom(); 
     this.scrolledUp=false
     if(this.newMessage.content==null)
     {

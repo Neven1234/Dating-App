@@ -163,3 +163,5 @@ D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\Google.Apis.Au
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\Google.Apis.Core.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\System.Management.dll
 D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Management.dll
+D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\Castle.Core.dll
+D:\iti .net\Udemy-Course\udemyCourse\udemyCourse\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll

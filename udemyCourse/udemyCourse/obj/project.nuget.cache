@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "TBa7o/B9CHoJKGe3d0DYpAzABZvMMikAsBh0KjcCNXzVfxe6+7tI/QoevHWhFv6xdV3ULDWP4m94d6/M6BBrNQ==",
+  "dgSpecHash": "SURAakKhVzkcgK2wAyJEk0tNSxgIopHFPUn4S2HDQtIxIT3Fkm9sYlSpC3hqCxeJVjO9zn/ZdEGSMnVKkVqJhg==",
   "success": true,
   "projectFilePath": "D:\\iti .net\\Udemy-Course\\udemyCourse\\udemyCourse\\udemyCourse.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\JC.TECH\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\JC.TECH\\.nuget\\packages\\castle.core\\5.1.0\\castle.core.5.1.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\cloudinarydotnet\\1.25.0\\cloudinarydotnet.1.25.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\google.apis\\1.67.0\\google.apis.1.67.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\google.apis.auth\\1.67.0\\google.apis.auth.1.67.0.nupkg.sha512",
@@ -43,6 +44,7 @@
     "C:\\Users\\JC.TECH\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.11\\microsoft.entityframeworkcore.abstractions.7.0.11.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.11\\microsoft.entityframeworkcore.analyzers.7.0.11.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\microsoft.entityframeworkcore.design\\7.0.11\\microsoft.entityframeworkcore.design.7.0.11.nupkg.sha512",
+    "C:\\Users\\JC.TECH\\.nuget\\packages\\microsoft.entityframeworkcore.proxies\\7.0.11\\microsoft.entityframeworkcore.proxies.7.0.11.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.11\\microsoft.entityframeworkcore.relational.7.0.11.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.11\\microsoft.entityframeworkcore.sqlserver.7.0.11.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\7.0.11\\microsoft.entityframeworkcore.tools.7.0.11.nupkg.sha512",
@@ -105,6 +107,7 @@
     "C:\\Users\\JC.TECH\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.0\\system.diagnostics.diagnosticsource.6.0.0.nupkg.sha512",
+    "C:\\Users\\JC.TECH\\.nuget\\packages\\system.diagnostics.eventlog\\6.0.0\\system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\system.diagnostics.tracing\\4.3.0\\system.diagnostics.tracing.4.3.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
     "C:\\Users\\JC.TECH\\.nuget\\packages\\system.formats.asn1\\5.0.0\\system.formats.asn1.5.0.0.nupkg.sha512",

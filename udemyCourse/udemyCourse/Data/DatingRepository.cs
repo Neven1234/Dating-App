@@ -24,8 +24,7 @@ namespace udemyCourse.Data
 
         public async Task<PageList<User>> GetAllAsync(UserParams userParams)
         {
-            var users = _dbContext.Users.Include(p => p.Photos)
-                .OrderByDescending(u => u.LastActive)
+            var users = _dbContext.Users.OrderByDescending(u => u.LastActive)
                 .AsQueryable();
             users = users.Where(u => u.Id != userParams.UserId);
             if (userParams.Gender != null)
@@ -66,7 +65,7 @@ namespace udemyCourse.Data
 
         public async Task<User> GetAsync(int id)
         {
-            var user = await _dbContext.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Id == id);
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
             return user;
         }
 
@@ -90,8 +89,6 @@ namespace udemyCourse.Data
         public async Task<PageList<Message>> GetMessagesForUser(MessageParams messageParams)
         {
             var messages = _dbContext.messages
-                .Include(u => u.Sender).ThenInclude(p => p.Photos)
-                .Include(u => u.Recipient).ThenInclude(p => p.Photos)
                 .AsQueryable();
             switch (messageParams.MessageContainer)
             {
@@ -113,8 +110,7 @@ namespace udemyCourse.Data
         public async Task<PageList<Message>> GetMessageTread(UserParams userParams)
         {
             var messages =  _dbContext.messages
-               .Include(u => u.Sender).ThenInclude(p => p.Photos)
-               .Include(u => u.Recipient).ThenInclude(p => p.Photos)
+              
                .Where(m => m.RecipientId == userParams.UserId && m.RecipientDeleted == false
                && m.SenderId == userParams.User2Id
                || m.RecipientId == userParams.User2Id && m.SenderDeleted == false && m.SenderId == userParams.UserId)
@@ -138,8 +134,7 @@ namespace udemyCourse.Data
         //heper function
         private async Task<IEnumerable<int>> GetUserLikes(int id, bool likers)
         {
-            var user = await _dbContext.Users.Include(x => x.Likers)
-                .Include(x => x.Likees)
+            var user = await _dbContext.Users
                 .FirstOrDefaultAsync(u => u.Id == id);
             if (likers)
             {

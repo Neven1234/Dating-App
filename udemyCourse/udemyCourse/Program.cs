@@ -66,7 +66,7 @@ builder.Services.AddCors(option =>
 
 builder.Services.AddDbContext<AppDbContext>(option =>
 {
-    option.UseNpgsql(builder.Configuration.GetConnectionString("connString"));
+    option.UseLazyLoadingProxies().UseNpgsql(builder.Configuration.GetConnectionString("connString"));
 });
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
