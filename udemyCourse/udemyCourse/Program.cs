@@ -52,6 +52,16 @@ builder.Services.AddSwaggerGen(C =>
 });
 
 builder.Services.AddSignalR();
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy(
+      name: "AllowOrigin",
+        builder => {
+            builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+        });
+});
 
 builder.Services.AddCors(option =>
 {
@@ -133,6 +143,7 @@ using (var scope = app.Services.CreateScope())
 
 }
 
+app.UseCors("AllowOrigin");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -159,7 +170,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors();
+//app.UseCors();
 
 
 app.UseHttpsRedirection();
