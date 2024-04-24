@@ -66,8 +66,8 @@ export function TokenGetter(){
     JwtModule.forRoot({
       config:{
         tokenGetter:TokenGetter,
-        allowedDomains:['localhost:7100'],
-        disallowedRoutes:['localhost:7100/api/auth']
+        allowedDomains:['localhost:8088'],
+        disallowedRoutes:['localhost:8088/api/auth']
       }
     }),
     TabsModule.forRoot(),

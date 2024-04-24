@@ -6,13 +6,13 @@ import { Observable, catchError, throwError } from "rxjs";
 export class ErrorInspecter implements HttpInterceptor{
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         var idToken=localStorage.getItem('token')
-        if (idToken) {
-            const authClonedRequest = req.clone({
-                headers: req.headers
-                    .set('Authorization', `Bearer ${idToken}`)
-            });
-            return next.handle(authClonedRequest);
-        }
+        // if (idToken) {
+        //     const authClonedRequest = req.clone({
+        //         headers: req.headers
+        //             .set('Authorization', `Bearer ${idToken}`)
+        //     });
+        //     return next.handle(authClonedRequest);
+        // }
         return next.handle(req).pipe(
             catchError(error=>{
                 if(error.status===401)

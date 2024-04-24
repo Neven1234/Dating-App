@@ -19,6 +19,7 @@ RUN npm run build:prod -- --output-path=dist/udemy-course-ui
 
 # Use official nginx image as the base image
 FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/udemy-course-ui/browser/ /usr/share/nginx/html
 
 # Expose port 80
